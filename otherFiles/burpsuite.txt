@@ -1,0 +1,11 @@
+You Can Add proxy from Tabe Proxy => Options
+
+
+
+										Repeater
+we ues it to less time while testing and editing in http:// or https:// POST requiest 
+
+
+										Intruder
+
+we use it do do brute force attach 

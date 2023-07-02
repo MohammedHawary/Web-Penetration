@@ -1,0 +1,47 @@
+1-Walking An Application
+	.Manually review a web application for security issues using only your browsers developer tools.
+	.Hacking with just your browser, no tools or scripts.
+		-> hidden pages in source code
+		-> comments 
+		-> etc
+2-Content Discovery
+	.various ways of discovering hidden or private content on a webserver that could lead to new vulnerabilities.
+		-> Manually
+			-> robots.txt	       -> gives us a great list of locations on the website that the owners don't want us to discover as penetration testers
+			-> Favicon (title bar) -> curl favico.ico |md5shum and compare between hashes in https://wiki.owasp.org/index.php/OWASP_favicon_database to 
+									  know website framework
+			-> sitemap.xml		   -> These can sometimes contain areas of the website that are a bit more difficult to navigate to or even list some old 
+									  webpages that the current site no longer uses but are still working behind the scenes.
+            -> HTTP Headers        -> These headers can sometimes contain useful information such as the webserver software and possibly the programming/
+            						  scripting language in use using curl website.s -v
+            -> Framework Stack     -> looking for clues in the page source such as comments, copyright notices or credits, you can then locate the
+            						  framework's website
+		-> OSINT (Open-Source Intelligence)
+			-> Google Dorking      -> https://en.wikipedia.org/wiki/Google_hacking
+			-> Wappalyzer          -> https://www.wappalyzer.com/
+			-> Wayback Machine	   -> https://archive.org/web/ 			-> help to know old pages that may still be active on the current website.
+			-> GitHub			   -> https://github.com/techgaun/github-dorks
+			-> S3 Buckets          -> http(s)://{name}.s3.amazonaws.com -> {name}-assets, {name}-www, {name}-public, {name}-private, etc.
+
+		-> Automated 
+			-> dirsearch
+			-> whois
+			-> dirb
+3-Subdomain Enumeration
+	.various ways of discovering subdomains to expand your attack surface of a target.
+		-> SSL/TLS Certificates
+			-> http://crt.sh/
+			-> https://ui.ctsearch.entrust.com/ui/ctsearchui
+		-> Search Engines
+			-> google dorks -> -site:www.example.com  site:*.example.com -> https://en.wikipedia.org/wiki/Google_hacking
+		->  DNS Bruteforce
+			-> dnsrecon     -> dnsrecon -t brt -d example.com -D /usr/share/wordlists/seclists/Discovery/DNS/choose_any_world_List
+		-> OSINT - Sublist3r
+			-> sublist3r    -> sublist3r  -d example.com
+		-> Virtual Hosts
+			-> subfinder    -> subfinder  -d example.com
+			-> amass        -> amass enum -d example.com
+			-> assetfinder  -> assetfinder example.com
+			-> ffuf         -> ffuf -w /usr/share/wordlists/SecLists/Discovery/DNS/choose_list -H "Host: FUZZ.example.com" -u http://example.com -fs {size}
+
+															Then Try To Find OWASP Top 10 Vulnarability

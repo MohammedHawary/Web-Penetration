@@ -1,0 +1,27 @@
+•SQL	Structed Query Language 
+
+•Where Can I Inject My Payload ?
+	.SQL Injection Can be in GET based
+		.Http://Example.com/index.php?id=1
+	.SQL Injection Can be in POST based
+		.Html form like login page.
+	.SQL Injection Can be in Header based
+		.Header parameter like Referrer, host, or User agent. 
+	.SQL Injection Can be in Cookie based
+		.Cookie: id=123123;
+
+•How to detect it ?
+	.Using SQL chars Like (' " \ or most spcial chars) recommended use \
+•How to Exploti it ?
+	1.Find Injection Point ! 
+	2. Fix Query or balance SQL
+		.In GET we add '--+ 
+		.In POST we add '--SPACE or ' # 
+	3. Find total number of vuln columns 
+		.Order by n . 
+		.UNION select 1,2,3,4,n-1. 
+		.What is return is vulnerable. Then Exploit the reflected number with test like version ()
+
+
+--+ get 
+-- - post 
