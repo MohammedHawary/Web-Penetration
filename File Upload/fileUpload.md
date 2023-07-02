@@ -101,4 +101,4 @@
 
 5. Outher Vulnerability
    
-   you can upload file to gain XXE injection,XSS by upload html files or any file 
+   you can upload file to gain XXE injection,XSS by upload .html,.doc,.xls files or any file 
