@@ -101,4 +101,40 @@
 
 5. Outher Vulnerability
    
-   you can upload file to gain XXE injection,XSS by upload .html,.doc,.xls files or any file 
+   ##### Uploading malicious client-side scripts
+   
+   Although you might not be able to execute scripts on the server, you may still be able to upload scripts for client-side attacks. For example, if you can upload HTML files or SVG images, you can potentially use `<script>` tags to create <u>stored XSS</u> payloads.
+   
+   If the uploaded file then appears on a page that is visited by other users, their browser will execute the script when it tries to render the page. Note that due to same-origin policy restrictions, these kinds of attacks will only work if the uploaded file is served from the same origin to which you upload it.
+   
+   ##### Exploiting vulnerabilities in the parsing of uploaded files
+   
+   If the uploaded file seems to be both stored and served securely, the last resort is to try exploiting vulnerabilities specific to the parsing or processing of different file formats. For example, you know that the server parses XML-based files, such as Microsoft Office `.doc` or `.xls` files, this may be a potential vector for <u>XXE injection</u> attacks.
+   
+   ### Uploading files using PUT
+   
+   It's worth noting that some web servers may be configured to support `PUT` requests. If appropriate defenses aren't in place, this can provide an alternative means of uploading malicious files, even when an upload function isn't available via the web interface.
+   
+       PUT /images/exploit.php HTTP/1.1
+       Host: vulnerable-website.com
+       Content-Type: application/x-httpd-php
+       Content-Length: 49
+       <?php echo file_get_contents('/path/to/file'); ?>
+   
+   Tip
+   
+   You can try sending `OPTIONS` requests to different endpoints to test for any that advertise support for the `PUT` method.
+
+## How to prevent file upload vulnerabilities
+
+Allowing users to upload files is commonplace and doesn't have to be dangerous as long as you take the right precautions. In general, the most effective way to protect your own websites from these vulnerabilities is to implement all of the following practices:
+
+- Check the file extension against a whitelist of permitted extensions rather than a blacklist of prohibited ones. It's much easier to guess which extensions you might want to allow than it is to guess which ones an attacker might try to upload. 
+
+- Make sure the filename doesn't contain any substrings that may be interpreted as a directory or a traversal sequence (`../`).
+
+-  Rename uploaded files to avoid collisions that may cause existing files to be overwritten. 
+
+-  Do not upload files to the server's permanent filesystem until they have been fully validated. 
+
+-  As much as possible, use an established framework for preprocessing file uploads rather than attempting to write your own validation mechanisms. 
