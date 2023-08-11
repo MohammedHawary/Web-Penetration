@@ -1,2 +1,0 @@
-			XXE -> XML External Entity
-There are two types of XXE attacks: in-band and out-of-band (OOB-XXE)
