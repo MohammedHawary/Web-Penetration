@@ -133,8 +133,8 @@ Allowing users to upload files is commonplace and doesn't have to be dangerous a
 
 - Make sure the filename doesn't contain any substrings that may be interpreted as a directory or a traversal sequence (`../`).
 
--  Rename uploaded files to avoid collisions that may cause existing files to be overwritten. 
+- Rename uploaded files to avoid collisions that may cause existing files to be overwritten. 
 
--  Do not upload files to the server's permanent filesystem until they have been fully validated. 
+- Do not upload files to the server's permanent filesystem until they have been fully validated. 
 
--  As much as possible, use an established framework for preprocessing file uploads rather than attempting to write your own validation mechanisms. 
+- As much as possible, use an established framework for preprocessing file uploads rather than attempting to write your own validation mechanisms. 

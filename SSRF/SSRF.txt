@@ -19,12 +19,13 @@ Where:
 								 ---------------------------------
 	.A hidden field in a form:
 	 crtl+f "type="hidden""
-		<form>
+
+	 	<form>
 		    <input type="hidden" name="server" value="http://server.website.thm/store">
 		    	   ------------                --------------------------------------
 		    <div>Your Name: </div>
 		    <div><input name="client_name"></div>
-		    <div>Your Email : </div>
+		    <div>Your Email :< /div>
 		    <div><input name="client_email"></div>
 		    <div>Your Message:</div>
 		    <div><textarea name="client_message"></textarea></div>
