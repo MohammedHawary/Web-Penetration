@@ -1,127 +1,114 @@
+HTTPX            -> search about it subdomain live 
 
+                        <= search about google dorks or google hacking database in website exploit-db =>
 
+site:siteName filetype:filetype                    ==> site:tesla.com filetype:pdf
+"@emal" -site:siteName                            ==> "@tesla.com" -site:tesla.com
+intitle:text OR inurl:text site:siteName                    ==> intitle:admin OR inurl:admin site:tesla.com
 
-HTTPX			-> search about it subdomain live 
+                                    <=  Active Information Gathering  =>
 
+ping            websiteName or host                        ==> get ip of website
+host            websiteName or host                        ==> get ip of website
+nslookup     websiteName or host                        ==> get ip of website
+whatweb      websiteName or host                        ==> get info about what website technology use software and hardware
+dirb            http://host/ or https://host/                    ==> Is a Web  Content  Scanner.  It  looks for existing (and/or hidden) Web Objects "directores"
+nmap            host or ip                                ==> scaning open ports IPs version of services and more
+nikto        websiteName or host                        ==> Examine a web server to find potential problems and security vulnerabilities
+dirsearch   -u URL                                ==> advanced command-line tool designed to brute force hidden directories and files in webservers
+subfinder   Domain Name                             ==> find sub and sub of sub subdomains
+sublist3r    -d Domain Name                             ==> find sub subdomains Faster
+amass                                         ==> Awesome Tool
 
+                                    <=  Passive Information Gathering  =>
 
-
-
-
-						<= search about google dorks or google hacking database in website exploit-db =>
-
-site:siteName filetype:filetype					==> site:tesla.com filetype:pdf
-"@emal" -site:siteName							==> "@tesla.com" -site:tesla.com
-intitle:text OR inurl:text site:siteName		            ==> intitle:admin OR inurl:admin site:tesla.com
-
-									<=  Active Information Gathering  =>
-
-ping 	   	websiteName or host						==> get ip of website
-host 	   	websiteName or host						==> get ip of website
-nslookup 	websiteName or host						==> get ip of website
-whatweb  	websiteName or host						==> get info about what website technology use software and hardware
-dirb 	   	http://host/ or https://host/					==> Is a Web  Content  Scanner.  It  looks for existing (and/or hidden) Web Objects "directores"
-nmap 	   	host or ip								==> scaning open ports IPs version of services and more
-nikto    	websiteName or host						==> Examine a web server to find potential problems and security vulnerabilities
-dirsearch   -u URL								==> advanced command-line tool designed to brute force hidden directories and files in webservers
-subfinder   Domain Name 							==> find sub and sub of sub subdomains
-sublist3r	-d Domain Name 							==> find sub subdomains Faster
-amass 										==> Awesome Tool
-
-
-									<=  Passive Information Gathering  =>
 search about <"website ip"> in goole and search on it like  => site24x7.com
 search about website in wikipidia and google
 .Tools
-	.theHarvester	-h									==> To Get Emails on domain
-	.whois  		websitename or host					==> get info about website like emails phons and domain status and more
-	.Foca 												==> search about any file in EnterNet about files like pdf.doc but it work on windows
-	.Wayback script
-	.amass 												==> Awesome Tool
-	.maltego											==> Awesome Tool for Enumeration
+    .theHarvester    -h                                    ==> To Get Emails on domain
+    .whois          websitename or host                    ==> get info about website like emails phons and domain status and more
+    .Foca                                                 ==> search about any file in EnterNet about files like pdf.doc but it work on windows
+    .Wayback script
+    .amass                                                 ==> Awesome Tool
+    .maltego                                            ==> Awesome Tool for Enumeration
 
 .WebSites
-	.Shodan.com
-	.Censys.com
-	.web.archive.org
-	.pastebin											==> get Leaked Data Base Dump
-	.haveibeenpwned										==> check Emails if Email password leaked or not
-	.OSINT Framework									==> Awesome Tool Contain tools links 
+    .Shodan.com
+    .Censys.com
+    .web.archive.org
+    .pastebin                                            ==> get Leaked Data Base Dump
+    .haveibeenpwned                                        ==> check Emails if Email password leaked or not
+    .OSINT Framework                                    ==> Awesome Tool Contain tools links 
 
+                                   <=  what's the Important Information about Target =>
 
-
-							   	<=  what's the Important Information about Target =>
-			
-Infrastructure             		    |               Business					   
+Infrastructure                         |               Business                       
 ------------------------------------+-------------------------------------------
-Network Maps 						| 	Web Presence (domains)				    
-Network Blocks						| 	Physical locations 				        						   
-IP addresses 						| 	Employees / Departments 			    
-Ports                         	    |   Emails 						   		    
-Services 							|	Partners and third parties 			    
-DNS 								|	Press / news releases 				    
-Operating systems 					|	Documents 						   	    
-Alive machines 					 	|	Financial information				     
-Systems 							| 	Job postings
-
-
+Network Maps                         |     Web Presence (domains)                    
+Network Blocks                        |     Physical locations                                                    
+IP addresses                         |     Employees / Departments                 
+Ports                                 |   Emails                                        
+Services                             |    Partners and third parties                 
+DNS                                 |    Press / news releases                     
+Operating systems                     |    Documents                                    
+Alive machines                          |    Financial information                     
+Systems                             |     Job postings
 
 ● Taking Note and Don't Remove it Forever 
-	.Use Mind Map App:
-		.FreeMind
-		.XMind
-
+    .Use Mind Map App:
+        .FreeMind
+        .XMind
 
 ● Website Recon
-	.About Us 
-	.Contact (Emails, Social media ) 
-	.Support 
-	.Careers 
-	.Login
- 	.Partners and third parties
- 		.Mergers and acquisitions, partnerships, third parties for this => Use "Agiliance" site  
- 		.what type of technologies and systems they use internally
- 	.Job search sites
- 		.=> LinkedIn
- 		.=> Indeed
- 		.=> Monster
- 		.=> Careerbuilder
- 		.=> Glassdoor
- 		.=> Simplyhired
- 		.=> Dice   
- 		.=> Agiliance
+    .About Us 
+    .Contact (Emails, Social media ) 
+    .Support 
+    .Careers 
+    .Login
+     .Partners and third parties
+         .Mergers and acquisitions, partnerships, third parties for this => Use "Agiliance" site  
+         .what type of technologies and systems they use internally
+     .Job search sites
+         .=> LinkedIn
+         .=> Indeed
+         .=> Monster
+         .=> Careerbuilder
+         .=> Glassdoor
+         .=> Simplyhired
+         .=> Dice   
+         .=> Agiliance
 
 ● User Information Gathering 
-		.Employee's personal information such as:
-				.phone numbers, addresses, CV, opinions, responsibilities, projects.
-				.theHarvester => tool on kali Linux 
-				.www.pipl.com 
-				.www.peoplefinders.com
+        .Employee's personal information such as:
+                .phone numbers, addresses, CV, opinions, responsibilities, projects.
+                .theHarvester => tool on kali Linux 
+                .www.pipl.com 
+                .www.peoplefinders.com
 
 ● Open-Source Code
-	.Manual :
-		.Github
-			."Company"	password
-			."Company"	secret
-			."Company"	token
-			."Company"	credential	
-			."Company"	config
-			."Company"	key
-			."Company"	pass
-			."Company"	login
-			."Company"	pwd
-			."Company"  ftp
-			."Company"	pwd
-			."Company"	security_credentials		# LDAP(AD)
-			."Company"	connectionstring			# Data Base
-			."Company"	JDBC						# Data Base
-			."Company"	ssh_auth_password
-			."Company"	send_key
-			."Company"	send_keys
-	.Outomation
-		.Gitrob
-		.Gitleaks
+    .Manual :
+        .Github
+            ."Company"    password
+            ."Company"    secret
+            ."Company"    token
+            ."Company"    credential    
+            ."Company"    config
+            ."Company"    key
+            ."Company"    pass
+            ."Company"    login
+            ."Company"    pwd
+            ."Company"  ftp
+            ."Company"    pwd
+            ."Company"    security_credentials        # LDAP(AD)
+            ."Company"    connectionstring            # Data Base
+            ."Company"    JDBC                        # Data Base
+            ."Company"    ssh_auth_password
+            ."Company"    send_key
+            ."Company"    send_keys
+    .Outomation
+        .Gitrob
+        .Gitleaks
 
 ● Information Gatherint framework.
-	.OSINT Framework	websit
-	.maltego			tool
+    .OSINT Framework    websit
+    .maltego            tool

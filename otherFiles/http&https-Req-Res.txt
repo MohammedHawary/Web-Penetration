@@ -1,65 +1,61 @@
-HTTP	=> hyper text Transform Protocol 
+HTTP    => hyper text Transform Protocol 
 HTTP    => Statless Protocol 
 Every request is completley independent
 similar to transactions
 Programing, Locval Storage, Cookies, Sessions are used to create enhanced uesr expreriences 
 
+                        HTTP METHODS
 
-						HTTP METHODS
 GET 
-	Retrieves data from the server 
+    Retrieves data from the server 
 
 POST 
-	Submit data to the server 
+    Submit data to the server 
 
 PUL
-	Update data already on the server 
+    Update data already on the server 
 
 DELETE 
-	Deletes data from the server
+    Deletes data from the server
 
 HEAD
-	The HEAD method asks for a response identical to a GET request, but without the response body.
-				~! We Use it in Brut Force Attack dirb dirbuster 
-				(with status code) It's Take less than time from any  Method !~
+    The HEAD method asks for a response identical to a GET request, but without the response body.
+                ~! We Use it in Brut Force Attack dirb dirbuster 
+                (with status code) It's Take less than time from any  Method !~
 
 CONNECT
-	The CONNECT method establishes a tunnel to the server identified by the target resource.
+    The CONNECT method establishes a tunnel to the server identified by the target resource.
 
 OPTIONS
-	The OPTIONS method describes the communication options for the target resource.
-	Return in response what the method allow on this server 
+    The OPTIONS method describes the communication options for the target resource.
+    Return in response what the method allow on this server 
 
 TRACE
-	Th e TRACE method performs a message loop-back test along the path to the target resource.
-				~! it's show the request contant in response contant then you can show
-				   cookie of target
-				   if you has a xss (if it has flag HTTP only which mean js can't access
-				   this cookie then
-				   try use TRACE Method to get cookies) !~
-
+    Th e TRACE method performs a message loop-back test along the path to the target resource.
+                ~! it's show the request contant in response contant then you can show
+                   cookie of target
+                   if you has a xss (if it has flag HTTP only which mean js can't access
+                   this cookie then
+                   try use TRACE Method to get cookies) !~
 
 PATCH
-	The PATCH method applies partial modifications to a resource.
+    The PATCH method applies partial modifications to a resource.
 
+                                HTTP STATUS CODES
 
-								HTTP STATUS CODES
+100 - 199 : Informational                                     100 - Continue    
+    Request recieved / processing                                  102 - Processing
 
-100 - 199 : Informational									 100 - Continue	
-	Request recieved / processing							 	 102 - Processing
+200 - 299 : Successfully                                     200 - OK
+    Successfully Recieved, Understood and accepted                     201 - OK created
 
-200 - 299 : Successfully									 200 - OK
-	Successfully Recieved, Understood and accepted					 201 - OK created
+300 - 399 : Redirect                                         301 - Moved to new URL
+    Further action must be taken / redirect                         304 - Not modified (Cached versoin)
 
-300 - 399 : Redirect										 301 - Moved to new URL
-	Further action must be taken / redirect						 304 - Not modified (Cached versoin)
+400 - 499 : Client Error                                     400 - Bad request 
+    Request does not have what it needs                          401 - Unauthorized 
 
-400 - 499 : Client Error									 400 - Bad request 
-	Request does not have what it needs 						 401 - Unauthorized 
-
-500 - 599 : Server Error									 500 - Internal server error
-	server failed to fulfil an apparent valid request      		 	 502 - Bad Gateway
-
+500 - 599 : Server Error                                     500 - Internal server error
+    server failed to fulfil an apparent valid request                    502 - Bad Gateway
 
 Search about SSL/TLS
-
