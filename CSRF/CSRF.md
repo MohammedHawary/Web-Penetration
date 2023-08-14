@@ -129,7 +129,7 @@ csrf=50FaWgdOhi9M9wyna8taR1k3ODOR8d6u&email=example@normal-website.com
 
 > **NOTE**
 > 
-> CSRF tokens can be transmitted in various ways, not just as hidden parameters in POST requests. Some applications choose to place CSRF tokens in HTTP headers. The method of token transmission greatly affects the overall security of the mechanism. For more details, refer to the [guidelines on preventing CSRF vulnerabilities](https://portswigger.net/web-security/csrf/preventing)).
+> CSRF tokens can be transmitted in various ways, not just as hidden parameters in POST requests. Some applications choose to place CSRF tokens in HTTP headers. The method of token transmission greatly affects the overall security of the mechanism. For more details, refer to the [guidelines on preventing CSRF vulnerabilities](https://portswigger.net/web-security/csrf/preventing).
 
 ## Common flaws in CSRF token validation
 
@@ -249,7 +249,9 @@ csrf=RhV7yQDO0xcq9gLEah2WVbmuFqyOq7tY&email=wiener@normal-user.com
 
 #### EX: CSRF where token is tied to non-session cookie
 
-<mark>not ended the Because lab problem</mark>
+-------------------><mark>not ended the Because lab problem</mark><----------------
+
+
 
 ### CSRF token is simply duplicated in a cookie
 
