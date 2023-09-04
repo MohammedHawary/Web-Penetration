@@ -48,7 +48,7 @@ If the user visits the attacker's crafted URL, the attacker's script runs in the
 
 ![Screenshot from 20230902 192703](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/6914479e-19de-4425-8c06-fed906d7e16b)
 
-**[Python Script for this lab](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_HTML_context_with_nothing_encoded.py)**
+> **[Python Script for this lab](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_HTML_context_with_nothing_encoded.py)**
 
 ### Impact of reflected XSS attacks
 
@@ -163,7 +163,7 @@ and the lab solved
 
 ![Screenshot from 2023-09-03 00-19-16](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/0f804dc9-6600-412b-ac9f-131cf029b072)
 
-[Python Script for this lab](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_HTML_context_with_most_tags_and_attributes_blocked.py)
+> [Python Script for this lab](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_HTML_context_with_most_tags_and_attributes_blocked.py)
 
 #### EX2: Reflected XSS into HTML context with all tags blocked except custom ones
 
@@ -219,7 +219,8 @@ Let's Create a Payload to solve this lab and send it to victim in exploit server
 ![Screenshot from 2023-09-04 04-01-22](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/98840e24-8c98-4c3b-adf3-9b32d4182e28)
 
 ![Screenshot from 2023-09-04 03-40-33](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/4221f40e-20bc-4cf6-acdc-9f54f3a950bc)
-[Python Script for this lab](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_HTML_context_with_all_tags_blocked_except_custom_ones.py)
+
+> [Python Script for this lab](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_HTML_context_with_all_tags_blocked_except_custom_ones.py)
 
 #### EX3: Reflected XSS with event handlers and href attributes blocked
 
@@ -263,7 +264,7 @@ It's work
 ![Screenshot from 2023-09-04 05-18-20](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/57e22104-5c3b-441e-8429-c42e13f161b9)
 And the lab solved ![Screenshot from 2023-09-04 05-21-22](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/b52c0803-7ad5-43a8-84dd-fa9577ef1a52)
 
-[Python Script for this lab](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_with_event_handlers_and_href_attributes_blocked.py)
+> [Python Script for this lab](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_with_event_handlers_and_href_attributes_blocked.py)
 
 #### EX4: Reflected XSS with some SVG markup allowed
 
