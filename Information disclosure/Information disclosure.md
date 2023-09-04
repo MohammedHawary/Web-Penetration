@@ -70,40 +70,40 @@ In this website link there are a parameter called `productId` this parameter exp
 
 ```log
 Internal Server Error: java.lang.NumberFormatException: For input string: "a"
-	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
-	at java.base/java.lang.Integer.parseInt(Integer.java:668)
-	at java.base/java.lang.Integer.parseInt(Integer.java:786)
-	at lab.y.o.s.t.y(Unknown Source)
-	at lab.s.s3.e.y.R(Unknown Source)
-	at lab.s.s3.v.d.n.m(Unknown Source)
-	at lab.s.s3.v.c.lambda$handleSubRequest$0(Unknown Source)
-	at l.e.f.c.lambda$null$3(Unknown Source)
-	at l.e.f.c.O(Unknown Source)
-	at l.e.f.c.lambda$uncheckedFunction$4(Unknown Source)
-	at java.base/java.util.Optional.map(Optional.java:260)
-	at lab.s.s3.v.c.i(Unknown Source)
-	at lab.server.a.w.q.P(Unknown Source)
-	at lab.s.s3.d.f(Unknown Source)
-	at lab.s.s3.d.P(Unknown Source)
-	at lab.server.a.w.n.z.d(Unknown Source)
-	at lab.server.a.w.n.h.lambda$handle$0(Unknown Source)
-	at lab.y.m.s.a.Q(Unknown Source)
-	at lab.server.a.w.n.h.o(Unknown Source)
-	at lab.server.a.w.f.x(Unknown Source)
-	at l.e.f.c.lambda$null$3(Unknown Source)
-	at l.e.f.c.O(Unknown Source)
-	at l.e.f.c.lambda$uncheckedFunction$4(Unknown Source)
-	at lab.server.l.t(Unknown Source)
-	at lab.server.a.w.f.j(Unknown Source)
-	at lab.server.a.d.b.C(Unknown Source)
-	at lab.server.a.s.O(Unknown Source)
-	at lab.server.a.g.O(Unknown Source)
-	at lab.server.u.w(Unknown Source)
-	at lab.server.u.T(Unknown Source)
-	at lab.u.r.lambda$consume$0(Unknown Source)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:833)
+    at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+    at java.base/java.lang.Integer.parseInt(Integer.java:668)
+    at java.base/java.lang.Integer.parseInt(Integer.java:786)
+    at lab.y.o.s.t.y(Unknown Source)
+    at lab.s.s3.e.y.R(Unknown Source)
+    at lab.s.s3.v.d.n.m(Unknown Source)
+    at lab.s.s3.v.c.lambda$handleSubRequest$0(Unknown Source)
+    at l.e.f.c.lambda$null$3(Unknown Source)
+    at l.e.f.c.O(Unknown Source)
+    at l.e.f.c.lambda$uncheckedFunction$4(Unknown Source)
+    at java.base/java.util.Optional.map(Optional.java:260)
+    at lab.s.s3.v.c.i(Unknown Source)
+    at lab.server.a.w.q.P(Unknown Source)
+    at lab.s.s3.d.f(Unknown Source)
+    at lab.s.s3.d.P(Unknown Source)
+    at lab.server.a.w.n.z.d(Unknown Source)
+    at lab.server.a.w.n.h.lambda$handle$0(Unknown Source)
+    at lab.y.m.s.a.Q(Unknown Source)
+    at lab.server.a.w.n.h.o(Unknown Source)
+    at lab.server.a.w.f.x(Unknown Source)
+    at l.e.f.c.lambda$null$3(Unknown Source)
+    at l.e.f.c.O(Unknown Source)
+    at l.e.f.c.lambda$uncheckedFunction$4(Unknown Source)
+    at lab.server.l.t(Unknown Source)
+    at lab.server.a.w.f.j(Unknown Source)
+    at lab.server.a.d.b.C(Unknown Source)
+    at lab.server.a.s.O(Unknown Source)
+    at lab.server.a.g.O(Unknown Source)
+    at lab.server.u.w(Unknown Source)
+    at lab.server.u.T(Unknown Source)
+    at lab.u.r.lambda$consume$0(Unknown Source)
+    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+    at java.base/java.lang.Thread.run(Thread.java:833)
 
 Apache Struts 2 2.3.31
 ```
@@ -131,44 +131,44 @@ Debugging information might be logged in a distinct file. Access to this file ca
 In this website after Directory Fuzzing using `burpsuite Content discovery` or `dirsearch` I find this fle `cgi-bin/phpinfo.php` this file contain all `phpinfo` and this is some info from this file lik Environment section
 
 ```log
-Variable	Value
-GATEWAY_INTERFACE 	CGI/1.1
-SUDO_GID 	10000
-REMOTE_HOST 	154.178.220.71
-USER 	carlos
-HTTP_DNT 	1
-SECRET_KEY 	x3paqmht6fz4ok6u8wq5ma9pjbq4s57l
-HTTP_TE 	trailers
-HTTP_SEC_FETCH_USER 	?1
-QUERY_STRING 	no value
-HOME 	/home/carlos
-HTTP_USER_AGENT 	Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0
-HTTP_UPGRADE_INSECURE_REQUESTS 	1
-HTTP_ACCEPT 	text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
-SCRIPT_FILENAME 	/home/carlos/cgi-bin/phpinfo.php
-HTTP_HOST 	0a1700fd0484b891808ef80300dc006f.web-security-academy.net
-SUDO_UID 	10000
-LOGNAME 	carlos
-SERVER_SOFTWARE 	PortSwiggerHttpServer/1.0
-HTTP_SEC_FETCH_MODE 	navigate
-TERM 	unknown
-HTTP_COOKIE 	session=Q1Cn4sWiPcuqpP6haYGqiZfGcCG7lf5V; session=ZfDu6Im3HwMBshjux3Xldpw639oPoLdP
-PATH 	/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
-HTTP_ACCEPT_LANGUAGE 	en-US,en;q=0.5
-HTTP_REFERER 	https://0a1700fd0484b891808ef80300dc006f.web-security-academy.net/cgi-bin/
-SERVER_PROTOCOL 	HTTP/1.1
-HTTP_ACCEPT_ENCODING 	gzip, deflate
-SUDO_COMMAND 	/usr/bin/sh -c /usr/bin/php-cgi
-SHELL 	/bin/bash
-REDIRECT_STATUS 	true
-HTTP_SEC_FETCH_DEST 	document
-SUDO_USER 	academy
-REQUEST_METHOD 	GET
-PWD 	/home/carlos/cgi-bin
-HTTP_SEC_FETCH_SITE 	same-origin
-SERVER_PORT 	443
-SCRIPT_NAME 	/cgi-bin/phpinfo.php
-SERVER_NAME 	10.0.4.200 
+Variable    Value
+GATEWAY_INTERFACE     CGI/1.1
+SUDO_GID     10000
+REMOTE_HOST     154.178.220.71
+USER     carlos
+HTTP_DNT     1
+SECRET_KEY     x3paqmht6fz4ok6u8wq5ma9pjbq4s57l
+HTTP_TE     trailers
+HTTP_SEC_FETCH_USER     ?1
+QUERY_STRING     no value
+HOME     /home/carlos
+HTTP_USER_AGENT     Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0
+HTTP_UPGRADE_INSECURE_REQUESTS     1
+HTTP_ACCEPT     text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+SCRIPT_FILENAME     /home/carlos/cgi-bin/phpinfo.php
+HTTP_HOST     0a1700fd0484b891808ef80300dc006f.web-security-academy.net
+SUDO_UID     10000
+LOGNAME     carlos
+SERVER_SOFTWARE     PortSwiggerHttpServer/1.0
+HTTP_SEC_FETCH_MODE     navigate
+TERM     unknown
+HTTP_COOKIE     session=Q1Cn4sWiPcuqpP6haYGqiZfGcCG7lf5V; session=ZfDu6Im3HwMBshjux3Xldpw639oPoLdP
+PATH     /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+HTTP_ACCEPT_LANGUAGE     en-US,en;q=0.5
+HTTP_REFERER     https://0a1700fd0484b891808ef80300dc006f.web-security-academy.net/cgi-bin/
+SERVER_PROTOCOL     HTTP/1.1
+HTTP_ACCEPT_ENCODING     gzip, deflate
+SUDO_COMMAND     /usr/bin/sh -c /usr/bin/php-cgi
+SHELL     /bin/bash
+REDIRECT_STATUS     true
+HTTP_SEC_FETCH_DEST     document
+SUDO_USER     academy
+REQUEST_METHOD     GET
+PWD     /home/carlos/cgi-bin
+HTTP_SEC_FETCH_SITE     same-origin
+SERVER_PORT     443
+SCRIPT_NAME     /cgi-bin/phpinfo.php
+SERVER_NAME     10.0.4.200 
 ```
 
 ## User account pages
@@ -261,7 +261,6 @@ public class ProductTemplate implements Serializable
         return product;
     }
 }
-
 ```
 
 ## Information disclosure due to insecure configuration

@@ -61,7 +61,7 @@ With these conditions in place, the attacker can construct a web page containing
 
 - The vulnerable web site will process the request in the normal way, treat it as having been made by the victim user, and change their email address.
 
-> **Note**
+> **NOTE**
 > 
 > Although CSRF is normally described in relation to cookie-based session handling, it also arises in other contexts where the application automatically adds some user credentials to requests, such as HTTP Basic authentication and certificate-based authentication.
 
@@ -213,7 +213,7 @@ I saw the CSRF token, Let's remove it and try to send the request![Screenshot fr
 The server response with error that it's messing parameter `CSRF`, let's check if the server allowed GET request method or not to bypass the `CSRF` token validation
 
 ![Screenshot from 2023-08-13 00-14-52](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/8adf5d92-1c5b-4864-9789-b19ffe380572)
-The server resonse with error that it the method not allowed ,Then let's check if the ssrf token created specialy for this seasion coockie or not by login with another user and take his ssrf token and putting it in burp repeater to attacker user 
+The server resonse with error that it the method not allowed ,Then let's check if the ssrf token created specialy for this seasion coockie or not by login with another user and take his `ssrf` token and putting it in burp repeater to attacker user 
 
 ![CSRF where token is not tied to user session and 5 more pages - Personal - Microsoft​ Edge 8_13_2023 5_35_20 AM](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/521119ec-42a4-45cf-a2ba-b50ec24f8c9e)
 
@@ -243,7 +243,7 @@ csrf=RhV7yQDO0xcq9gLEah2WVbmuFqyOq7tY&email=wiener@normal-user.com
 
 **This situation is harder to exploit** but is **still vulnerable**. **If the web site contains any behavior that allows an attacker to set a cookie in a victim's browser**, then an attack is possible. The attacker can log in to the application using their own account, obtain a valid token and associated cookie, leverage the cookie-setting behavior to place their cookie into the victim's browser, and feed their token to the victim in their CSRF attack. 
 
-> **Note**
+> **NOTE**
 > 
 > The cookie-setting behavior does not even need to exist within the same web application as the `CSRF` vulnerability. Any other application within the same overall `DNS` domain can potentially be leveraged to set cookies in the application that is being targeted, if the cookie that is controlled has suitable scope. For example, a cookie-setting function on `staging.demo.normal-website.com` could be leveraged to place a cookie that is submitted to `secure.normal-website.com`.
 
@@ -251,8 +251,265 @@ csrf=RhV7yQDO0xcq9gLEah2WVbmuFqyOq7tY&email=wiener@normal-user.com
 
 -------------------><mark>not ended the Because lab problem</mark><----------------
 
-
-
 ### CSRF token is simply duplicated in a cookie
 
+In another form of the vulnerability, certain applications don't keep track of issued tokens on the server-side. Instead, they duplicate each token in a cookie and a request parameter. During validation, the application only checks if the token in the request parameter matches the one in the cookie. This method, known as the "**double submit**" **defense against CSRF**, is favored for its simplicity and avoidance of server-side state:
 
+```log
+POST /email/change HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 68
+Cookie: session=1DQGdzYbOJQzLP7460tfyiv3do7MjyPw; csrf=R8ov2YBfTYmzFyjit8o2hKBuoIjXXVpa
+
+csrf=R8ov2YBfTYmzFyjit8o2hKBuoIjXXVpa&email=wiener@normal-user.com
+```
+
+#### EX: CSRF where token is duplicated in cookie
+
+-------------------><mark>Not ended the Because lab problem</mark><----------------
+
+## Bypassing SameSite cookie restrictions
+
+`SameSite` is a browser security mechanism that determines **when a website's cookies are included in requests originating from other websites**. **`SameSite` cookie restrictions provide partial protection against a variety of cross-site attacks, including `CSRF`, `cross-site leaks`, and some `CORS` exploits**. 
+
+Since 2021, Chrome enforces default `Lax SameSite` restrictions for cookies unless the issuing website explicitly sets its own restriction level.
+
+### What is a site in the context of SameSite cookies
+
+In `SameSite` cookie restrictions, a "site" refers to the **top-level domain** (`TLD`) and one additional level of the domain name, commonly known as `TLD+1`. The URL scheme is also considered when determining if a request is same-site or **cross-site**. For example, a link from `http://app.example.com` to `https://app.example.com`  is typically treated as **cross-site** by most browsers.
+
+![site-definition](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/d3486301-e108-4bed-8f98-4d3c2e0855af)
+
+> **NOTE**
+> 
+> You may come across the term **effective top-level domain** (`eTLD`). This is just a way of accounting for the reserved multipart suffixes that are treated as **top-level domains** in practice, such as `.co.uk`.
+
+### What's the difference between a site and an origin
+
+A `site` includes **multiple domain** names, while an `origin` refers to a **single domain** name. It is crucial to distinguish between the two as using them interchangeably can lead to significant security risks. Two URLs are considered to have the same `origin` if they share the **same scheme, domain name, and port** (although the port is often implied by the scheme).
+
+![site-vs-origin](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/d153d8a0-d70a-45cb-8644-7c1ffa36dc8e)
+
+| Request from            | Request to                   | Same-site?            | Same-origin?               |
+| ----------------------- | ---------------------------- | --------------------- | -------------------------- |
+| https://example.com     | https://example.com          | YES                   | Yes                        |
+| https://app.example.com | https://intranet.example.com | YES                   | No: mismatched domain name |
+| https://example.com     | https://example.com:8080     | YES                   | No: mismatched port        |
+| https://example.com     | https://example.co.uk        | No: mismatched eTLD   | No: mismatched domain name |
+| https://example.com     | http://example.com           | No: mismatched scheme | No: mismatched scheme      |
+
+This is an important distinction as it means that any vulnerability enabling arbitrary JavaScript execution can be abused to bypass site-based defenses on other domains belonging to the same site.
+
+### How does SameSite work
+
+`SameSite` **prevents browsers from sending cookies to the issuing domain in every request**, even if triggered by a third-party website. **It enables control over which cross-site requests include specific cookies**, reducing the risk of `CSRF` attacks. These attacks rely on a victim's browser triggering harmful actions using a cookie associated with their authenticated session, which **will fail if the browser doesn't include the cookie**.
+
+All major browsers currently support the following `SameSite` **restriction levels**: 
+
+- `Strict`
+
+- `Lax`
+
+- `None`
+
+Developers can set a restriction level for each cookie manually, granting them greater control over cookie usage. They can achieve this by **including the `SameSite` attribute in the `Set-Cookie` response header and specifying their desired value**:
+
+```log
+Set-Cookie: session=0F8tgdOhi9ynR1M9wa3ODa; SameSite=Strict
+```
+
+ Although this offers some protection against `CSRF` attacks, **none of these restrictions provide guaranteed immunity**
+
+> **NOTE**
+> 
+> If a website doesn't set a `SameSite` attribute for a cookie, **Chrome applies default** `Lax` **restrictions automatically**. This restricts the cookie to be sent only in certain cross-site requests, even without explicit configuration by developers. Other major browsers are expected to adopt this behavior as it becomes a standard in the future.
+
+### Strict
+
+If a cookie has the `SameSite=Strict` attribute, **browsers won't send it in cross-site requests**. In other words, **if the request's target site doesn't match the site in the browser's address bar, the cookie won't be included**.
+
+**This is recommended for cookies that allow the bearer to modify data or perform sensitive actions, like accessing authenticated-only pages**.
+
+Although this is the most secure option, it can negatively impact the user experience in cases where cross-site functionality is desirable. 
+
+### Lax
+
+`Lax` SameSite restrictions mean that browsers will send the cookie in cross-site requests, but only if both of the following conditions are met: 
+
+- The request uses the `GET` method.
+
+- The request resulted from a top-level navigation by the user, such as clicking on a link.
+
+This means the cookie is excluded from cross-site `POST` requests, which are commonly targeted in `CSRF` attacks due to their potential to modify data or state.
+
+Likewise, the cookie is not included in background requests, such as those initiated by scripts, `iframe`, or references to `images` and other resources. 
+
+### None
+
+If a cookie has the `SameSite=None` attribute, **it disables `SameSite` restrictions entirely, regardless of the browser**. **This means the cookie will be sent in all requests to the issuing site, even if they were triggered by unrelated third-party sites**.
+
+With the exception of **Chrome**, this is the default behavior used by major browsers if no `SameSite` attribute is provided when setting the cookie. 
+
+Disabling `SameSite` can be valid in certain cases, such as when the cookie is used in a third-party context without granting access to sensitive data or functionality (e.g., tracking cookies).
+
+If you come across a cookie set with `SameSite=None` or no explicit restrictions, it's worth investigating its purpose. Initially, Chrome's adoption of "**Lax-by-default**" behavior caused compatibility issues with existing web functionality. As a temporary solution, some websites chose to disable `SameSite` restrictions on all cookies, including potentially sensitive ones.
+
+When using `SameSite=None`, the website must also include the `Secure` attribute to ensure the cookie is only sent over `HTTPS` in encrypted messages. Otherwise, the cookie will be rejected by browsers and not set.
+
+```log
+Set-Cookie: trackingId=0F8tgdOhi9ynR1M9wa3ODa; SameSite=None; Secure
+```
+
+### Bypassing SameSite Lax restrictions using GET requests
+
+In practice, servers may not always differentiate between `GET` and `POST` requests to a specific endpoint, even when expecting form submissions. If the servers also have `Lax` restrictions on their session cookies, either explicitly or by browser default, it's still possible to carry out a `CSRF` attack by triggering a `GET` request from the victim
+
+ As long as the request involves a top-level navigation, the browser will still include the victim's session cookie. The following is one of the simplest approaches to launching such an attack: 
+
+```html
+<script>
+    document.location = 'https://vulnerable-website.com/account/transfer-payment?recipient=hacker&amount=1000000';
+</script>
+```
+
+Even if an ordinary `GET` request isn't allowed, Some frameworks allow overriding the specified method in a `GET` request. For instance, `Symfony` supports the `_method` parameter in forms, which takes precedence over the **default method for routing**.
+
+```html
+<form action="https://vulnerable-website.com/account/transfer-payment" method="POST">
+    <input type="hidden" name="_method" value="GET">
+    <input type="hidden" name="recipient" value="hacker">
+    <input type="hidden" name="amount" value="1000000">
+</form>
+```
+
+ Other frameworks support a variety of similar parameters. 
+
+### EX: SameSite Lax bypass via method override
+
+![Screenshot from 2023-08-14 12-43-34](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/29dfc057-93b2-4f4a-b012-e6eca50f0481)
+
+I login and captured the request 
+
+![Screenshot from 2023-08-14 12-38-37](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/a63b3531-862e-4854-b6e0-a01b15e6817e)
+
+In the login response the website doesn't explicitly specify any `SameSite` restrictions when setting session cookies. As a result, the browser will use the default `Lax` restriction level. 
+
+![Screenshot from 2023-08-14 11-35-17](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/a1e0d142-9da1-41c9-a6ed-d33a1c209b87)
+Recognize that this means the session cookie will be sent in cross-site `GET` requests, as long as they involve a top-level navigation. then let's change Request method to `GET` and send
+![Screenshot from 2023-08-14 11-49-54](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/87fff7d0-e380-4269-8be5-56d201b5844e)
+The server response with `Method Not Allowed` Let's try bypass it with adding this parameter to query `_method` string and send it 
+
+![Screenshot from 2023-08-14 11-50-13](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/3bbd826a-fd35-48e1-935e-83a6c1c5747e)The request have been accepted by the server then let's Create our payload
+
+```html
+<script>
+    document.location = 'https://vulnerable-website.com/my-account/change-email?email=hacker&_method=POST';
+</script>
+```
+
+![Screenshot from 2023-08-14 12-32-44](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/8918fb45-8a97-43d3-97b6-ca5c24e70b5f)
+let's test it in browser 
+
+![Screenshot from 2023-08-14 11-52-21](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/98b23116-4f09-4866-86d3-ac01062c59fe)
+and it's work then let's to exploit server and send it to victim
+![Screenshot from 2023-08-14 12-36-02](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/ef7f35ee-2e43-4785-8c4d-02aef4eeea49)
+
+### Bypassing SameSite restrictions using on-site gadgets
+
+If a cookie has the `SameSite=Strict` attribute, it won't be included in cross-site requests. However, there's a way to bypass this restriction by using a gadget like a client-side redirect(`open redirection`). This redirect constructs the target dynamically using input that the attacker controls, such as URL parameters. These redirects are not recognized as redirects by browsers. Instead, the resulting request is treated as a regular standalone request within the same site. This means that all cookies related to the site will be included in the request, regardless of any restrictions in place. By manipulating this gadget to trigger a malicious secondary request, it's possible to completely bypass `SameSite` cookie restrictions.
+
+>  **NOTE** 
+> 
+> That the equivalent attack is **not possible with server-side redirects**. In this case, browsers recognize that the request to follow the redirect resulted from a cross-site request initially, so they still apply the appropriate cookie restrictions. 
+
+#### EX: SameSite Strict bypass via client-side redirect
+
+![Screenshot from 2023-08-14 17-20-21](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/930dbd9c-0abe-4d12-9c92-79997b69f40b)
+I login and captured the request
+
+![Screenshot from 2023-08-14 17-42-45](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/68f5c7de-46ea-4d87-b0c6-33280ebd974c)
+In the login response, the website explicitly specify `SameSite=Strict` restrictions when setting session cookies.
+
+![Screenshot from 2023-08-14 17-21-30](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/7926bb86-e998-4138-b657-d9f31463574d)Then I Changed email and capture request
+
+![Screenshot from 2023-08-14 17-51-16](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/14a28b25-4784-45bc-bec9-79ed4c7e2d0e)
+To bypass this restriction(SameSite=Strict) we need to find client-side redirect(`open redirection`) After search I found a page called `/post/x`, you can write a comment on this page, and after writing the comment, it will be sent to `/post/comment/confirmation?postId=x` but, after a few seconds, it's taken back to the blog post.
+
+![Screenshot from 2023-08-14 17-52-32](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/254978d3-21fa-412c-9dcc-3593f726e8ab)
+![Screenshot from 2023-08-14 20-42-00](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/e7f830ea-5fba-4c8f-8a2d-b99ec1efedd7)
+
+![Screenshot from 2023-08-14 17-52-36](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/65399416-e644-43a6-857e-a9c4e06212dd)
+![Screenshot from 2023-08-14 17-53-14](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/1281f5f5-0740-46a3-a749-ab45fbffc7bc)
+Let's capture this request
+
+![Screenshot from 2023-08-14 20-43-02](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/db035f68-62d7-4e9a-bcf2-3a82af170b8a)
+
+```js
+redirectOnConfirmation = (blogPath) => {
+    setTimeout(() => {
+        const url = new URL(window.location);
+        const postId = url.searchParams.get("postId");
+        window.location = blogPath + '/' + postId;
+    }, 3000);
+}
+```
+
+I found in this request some JavaScript code responsable about redirection
+
+in this code there are line 
+
+```js
+window.location = blogPath + '/' + postId;
+```
+
+you can write any path in `postId` variable and the variable in take his value from url
+
+```log
+/post/comment/confirmation?postId=4
+```
+
+then let's Try path traversal with this `../../`
+
+```log
+https://example.com/post/comment/confirmation?postId=../../
+```
+
+![Screenshot from 2023-08-14 17-51-16](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/14a28b25-4784-45bc-bec9-79ed4c7e2d0e)
+
+in this request right click and copy url
+
+![Screenshot from 2023-08-14 20-54-14](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/aa9a8639-0172-4584-9400-729d7fe3e275)
+![Screenshot from 2023-08-14 20-54-25](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/f2d05e9f-ba52-426c-acf7-742c3afb92f2)
+
+As you can see it's redirect us to home page then we found `open redirect` Let's check if the change email page support `GET` method
+![Screenshot from 2023-08-14 17-55-50](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/d76d6844-cf2d-400b-b7d6-4d2f8a428ee3)
+It's support then let's create our payload Like this 
+
+```html
+<script>
+    document.location = "https://example.com/post/comment/confirmation?postId=1/../../my-account/change-email?email=hacker%40hack.com%26submit=1";
+</script>
+```
+
+![Screenshot from 2023-08-14 17-56-42](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/308405e2-1bf0-48e3-a91c-42d78f0c8ef7)
+After prepar our script let's check it in exploit server
+![Screenshot from 2023-08-14 17-58-07](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/14bbdcd9-d4e3-41dd-93c3-dbe83e0e0452)
+![Screenshot from 2023-08-14 17-58-15](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/09dba82f-ba54-417d-b1f1-dbdbeed422be)
+And It's work
+
+![Screenshot from 2023-08-14 18-02-16](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/cfe04ebb-641a-4c4b-823d-c933a01bc62c)
+
+then let's send it to victim to solve the lab
+
+![Screenshot from 2023-08-14 21-03-59](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/c994aa1a-aed4-403e-a47c-231b98eb5ab1)
+
+### Bypassing SameSite restrictions via vulnerable sibling domains
+
+Whether testing a website or securing one, remember a request can be same-site even if it's cross-origin. Thoroughly audit the attack surface, including sibling domains. Vulnerabilities like **XSS** can compromise defenses, exposing all site domains to cross-site attacks.
+
+Apart from classic CSRF, remember WebSocket support might lead to cross-site WebSocket hijacking (**CSWSH**), like a **CSRF** attack on a **WebSocket handshake**. 
+
+#### EX: SameSite Strict bypass via sibling domain
+
+# To Be Continue

@@ -1,41 +1,44 @@
-										Directory/Path Traversal											
+                                        Directory/Path Traversal                                            
+
 . Directory Traversal or Path Traversal 
-	. List or read files/dir only not Execute 
+    . List or read files/dir only not Execute 
 
 ___________________________________________________________________________________________________________
 
-											LFI
+                                            LFI
+
 . Local File Inclusion (LFI)
-	. Can Read and Execute Locals files on Servere 
+    . Can Read and Execute Locals files on Servere 
 
 Exploitation:
-	. Path some file you can Write on it
-		. pcoc/self/environ
-		. var/log/auth.log
-		. var/log/apache2/access.log
-		.https://github.com/RoqueNight/LFI---RCE-Cheat-Sheet
+    . Path some file you can Write on it
+        . pcoc/self/environ
+        . var/log/auth.log
+        . var/log/apache2/access.log
+        .https://github.com/RoqueNight/LFI---RCE-Cheat-Sheet
 tricks:
-	1-null bits
-	2-filter keywords to avoid disclosing sensitive information
-		-> http://webapp.thm/index.php?lang=/etc/passwd/.
-		-> http://webapp.thm/index.php?lang=/etc/passwd%00
-	3-..//..//..//etc//passwd
-	4-use burp with payloads.txt with grep
-	5-inject your payloads in cookie also don't panic 
+    1-null bits
+    2-filter keywords to avoid disclosing sensitive information
+        -> http://webapp.thm/index.php?lang=/etc/passwd/.
+        -> http://webapp.thm/index.php?lang=/etc/passwd%00
+    3-..//..//..//etc//passwd
+    4-use burp with payloads.txt with grep
+    5-inject your payloads in cookie als o don't panic 
 Notes:
-	. If You Want read Source Code of Files not Execute it Then Use (PHP Wrappers LFI code Execution) <- search about This
+    . If You Want read Source Code of Files not Execute it Then Use (PHP Wrappers LFI code Execution) <- search about This
 
 payloads file -> https://raw.githubusercontent.com/emadshanab/LFI-Payload-List/master/LFI%20payloads.txt
+
 ___________________________________________________________________________________________________________
 
-											RFI
+                                            RFI
+
 . Remote File Inclusion (RFI)
-	. Can read and Execute remote files
-	. You can Execute files with Create local web server Like http://192.168.1.6/shell.txt or php
-
+    . Can read and Execute remote files
+    . You can Execute files with Create local web server Like http://192.168.1.6/shell.txt or php
 
 ___________________________________________________________________________________________________________
 
-	How To Find (Directory Traversal, LIF, RFI)
-		1-FUZING Most Popular param (https://github.com/danielmiessler/SecLists)
-		2-Test For /etc/passwd
+    How To Find (Directory Traversal, LIF, RFI)
+        1-FUZING Most Popular param (https://github.com/danielmiessler/SecLists)
+        2-Test For /etc/passwd
