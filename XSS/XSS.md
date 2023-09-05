@@ -48,7 +48,7 @@ If the user visits the attacker's crafted URL, the attacker's script runs in the
 
 ![Screenshot from 20230902 192703](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/6914479e-19de-4425-8c06-fed906d7e16b)
 
-> **[Python Script for this lab](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_HTML_context_with_nothing_encoded.py)**
+> [**Python Script for this lab**](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_HTML_context_with_nothing_encoded.py)
 
 ### Impact of reflected XSS attacks
 
@@ -163,7 +163,7 @@ and the lab solved
 
 ![Screenshot from 2023-09-03 00-19-16](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/0f804dc9-6600-412b-ac9f-131cf029b072)
 
-> [Python Script for this lab](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_HTML_context_with_most_tags_and_attributes_blocked.py)
+> [**Python Script for this lab**](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_HTML_context_with_most_tags_and_attributes_blocked.py)
 
 #### EX2: Reflected XSS into HTML context with all tags blocked except custom ones
 
@@ -220,7 +220,7 @@ Let's Create a Payload to solve this lab and send it to victim in exploit server
 
 ![Screenshot from 2023-09-04 03-40-33](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/4221f40e-20bc-4cf6-acdc-9f54f3a950bc)
 
-> [Python Script for this lab](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_HTML_context_with_all_tags_blocked_except_custom_ones.py)
+> [**Python Script for this lab**](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_HTML_context_with_all_tags_blocked_except_custom_ones.py)
 
 #### EX3: Reflected XSS with event handlers and href attributes blocked
 
@@ -264,9 +264,122 @@ It's work
 ![Screenshot from 2023-09-04 05-18-20](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/57e22104-5c3b-441e-8429-c42e13f161b9)
 And the lab solved ![Screenshot from 2023-09-04 05-21-22](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/b52c0803-7ad5-43a8-84dd-fa9577ef1a52)
 
-> [Python Script for this lab](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_with_event_handlers_and_href_attributes_blocked.py)
+> [**Python Script for this lab**](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_with_event_handlers_and_href_attributes_blocked.py)
 
 #### EX4: Reflected XSS with some SVG markup allowed
+
+First, I entered sample html code
+
+![Screenshot from 20230902 232825](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/26e297b0-276b-45e1-93c2-a8273ac17c8b) The server reply that the <u>Tag is not allowed</u>, let's capture this request with burp
+
+![Screenshot from 20230902 232830](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/9722f478-fcd7-4f95-b75e-161bbbd4a697) Write uniqe string and numbers to see where it reflected and if there are any changes on it
+
+![Screenshot from 2023-09-05 10-46-39](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/212d30eb-afa4-414a-84b9-5c432192a32c)
+No changes, Then let's add custom tag to see what will happen `<asdfghjk123>` 
+
+![Screenshot from 2023-09-05 10-46-56](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/3fa99d19-55a3-4c59-ae22-50ce22833881)
+Tag not allowed then let's check if server accepted this sign or not `<>`
+
+![Screenshot from 2023-09-05 10-47-09](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/2e1cc7d8-810c-4c03-9eb1-c975f7dbcc64)
+The server allowed it then let's brutforce tags to know if there are any tag allowed with port-swiger [cheat-sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
+
+![Screenshot from 2023-09-05 10-47-25](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/c37bccfe-c513-41e2-a3dc-b7f777141b8f)
+![Screenshot from 2023-09-05 10-47-36](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/033f699a-3689-4a30-960d-68b79efb326b)
+
+![Screenshot from 2023-09-05 10-47-52](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/3ef28a44-b20a-4818-b43d-afeb103332f6)
+
+There are 4 tags allowed `svg, title, image, animatetransform` then let's write xss payload with this info
+
+![Screenshot from 2023-09-05 10-48-55](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/64192b41-6795-4db8-8413-d2652ae2a11b)
+
+we can write payload with svg and use animateTransform tag Animation event attributes to perform our xss payload
+
+![Screenshot from 2023-09-05 10-59-31](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/e1e96943-4476-4b2f-9f0e-a398651e86a9)
+
+![Screenshot from 2023-09-05 11-00-09](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/580ecb94-c138-42a0-9d3b-35d229b1942f)
+
+Let's make chatGPT help us to write example code
+
+![Screenshot from 2023-09-05 11-03-26](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/11f180b6-da61-4b14-a8bf-eb52fdce9125)
+
+```html
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="blue">
+    <animateTransform
+      attributeName="transform"
+      attributeType="XML"
+      type="translate"
+      values="0,0;100,100;0,0"
+      begin="0s"
+      dur="3s"
+      repeatCount="indefinite"
+      onbegin="alert('Animation started!')"
+    />
+  </rect>
+</svg>
+```
+
+let's remove additonal things
+
+```html
+<svg>
+    <animateTransform onbegin="alert('xss')"/>
+</svg>
+```
+
+Then let's check this payload
+
+![Screenshot from 2023-09-05 11-05-45](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/546d0f0a-621b-4be8-aa93-3999168727f9) 
+
+> **[Python Script for this lab](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_with_some_SVG_markup_allowed.py)**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
