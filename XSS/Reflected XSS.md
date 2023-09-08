@@ -349,8 +349,6 @@ Typically, angle brackets are blocked or encoded in this scenario, preventing yo
 
 The payload above generates an `onfocus` event triggering JavaScript when the element gains focus. It includes the `autofocus` attribute to initiate the `onfocus` event without user interaction and appends `x="` **to fix the subsequent** markup gracefully.
 
-
-
 In some cases, the XSS context is within an HTML attribute that inherently allows script execution, eliminating the need to terminate the attribute value. For instance, if it's within the href attribute of an anchor tag, you can employ the javascript: pseudo-protocol to execute JavaScript, like this:
 
 ```html
@@ -380,6 +378,93 @@ And Let's check it
 ![Screenshot from 2023-09-05 12-01-49](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/252fdd7b-baf6-468d-8c9a-628aed5b27c1)
 
 > [**Python Script for this lab**](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_attribute_with_angle_brackets_HTML_encoded.py)
+
+### XSS in hidden input fields
+
+![b9ffb03974c5-article-xss-hidden-input-field-article](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/4074d908-f462-4807-91df-7f77512b31af)
+
+```html
+<input type="hidden" name="redacted" value="default" injection="xss" />
+```
+
+XSS in hidden inputs is frequently very difficult to exploit because typical JavaScript events like onmouseover and onfocus can't be triggered due to the element being invisible.
+
+You can use  access keys and the onclick event triggers on hidden input when activated via an access key, as confirmed in Firefox. This allows for executing an XSS payload inside a hidden attribute, provided you can convince the victim to press the specified key combination, such as `ALT+SHIFT+X` on Firefox for Windows/Linux or `CTRL+ALT+X` on OS X. You can customize the key combination using a different key in the access key attribute. Here's the vector:
+
+```html
+<input type="hidden" accesskey="X" onclick="alert(1)">
+```
+
+This vector, while requiring some user interaction, is still superior to expression(), which only functions on `IE<=9`. Be aware that if the reflection is duplicated, the key combination may fail. To address this, you can inject another attribute that disrupts the second reflection, like this: `" accesskey="x" onclick="alert(1)" x='`
+
+This technique now works in Chrome and can be applied to link elements, making previously unexploitable XSS vulnerabilities in such elements exploitable. For instance, if you control only attributes in a link element, like the rel attribute for canonical, injecting the accesskey attribute with an onclick event can lead to XSS.
+
+```html
+<link rel="canonical" accesskey="X" onclick="alert(1)" />
+```
+
+Poc using link elements (Press ALT+SHIFT+X on Windows) (CTRL+ALT+X on OS X)
+
+## XSS into JavaScript
+
+In an XSS context involving existing JavaScript within the response, various situations can arise, requiring different techniques for a successful exploit, such as script termination.
+
+In the simplest case, you can close the enclosing script tag around existing JavaScript and introduce new HTML tags to trigger JavaScript execution. For instance, in the following XSS context:
+
+```html
+<script>
+...
+var input = 'controllable data here';
+...
+</script>
+```
+
+Then you can use the following payload to break out of the existing JavaScript and execute your own: 
+
+```html
+</script><img src=1 onerror=alert(document.domain)>
+```
+
+This works because browsers initially parse HTML to identify page elements, including script blocks, before later parsing and executing JavaScript. The payload leaves the original script incomplete, but this doesn't prevent the subsequent script from being parsed and executed normally.
+
+#### EX: Reflected XSS into a JavaScript string with single quote and backslash escaped
+
+First, test with this `<asdfghjk123>` to know where the payload reflected or if there are any changes on it![Screenshot from 2023-09-05 11-56-30](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/4b7905d3-44e7-4186-818b-3e68a6657a3c)In the page source There are two places reflected in page source the second place in JS code in var `searchTerms`![Screenshot from 2023-09-08 11-03-08](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/4fa02d99-b56a-42d7-98f9-a8458012b10e)
+![Screenshot from 2023-09-08 11-03-36](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/de1773bb-b890-4c8c-aa76-b409cc9c1068)
+Let's close the script tage and write our payload
+
+```html
+</script><img src=1 onerror=alert('xss')>
+```
+
+![Screenshot from 2023-09-08 11-04-54](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/9627a1d6-9ce5-4dd2-9fd1-42e8d13768a2)
+
+Our payload worked in page source, Let's show it in browser
+
+![Screenshot from 2023-09-08 11-05-06](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/207ff1d1-5427-465d-9821-f037b60c3a57)
+It's work
+
+![Screenshot from 2023-09-08 11-05-14](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/20c14ec4-aa5d-4f34-99fd-af4b219f1630)
+
+> [**Python Script for this lab**]([Solve-Portswigger-Labs-With_py/XSS/Reflected_XSS_into_a_JavaScript_string_with_single_quote_and_backslash_escaped.py at main · MohammedHawary/Solve-Portswigger-Labs-With_py (github.com)](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_a_JavaScript_string_with_single_quote_and_backslash_escaped.py))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
