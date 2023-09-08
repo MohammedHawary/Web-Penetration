@@ -446,7 +446,7 @@ It's work
 
 ![Screenshot from 2023-09-08 11-05-14](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/20c14ec4-aa5d-4f34-99fd-af4b219f1630)
 
-> [**Python Script for this lab**]([Solve-Portswigger-Labs-With_py/XSS/Reflected_XSS_into_a_JavaScript_string_with_single_quote_and_backslash_escaped.py at main · MohammedHawary/Solve-Portswigger-Labs-With_py (github.com)](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_a_JavaScript_string_with_single_quote_and_backslash_escaped.py))
+> [**Python Script for this lab**](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_a_JavaScript_string_with_single_quote_and_backslash_escaped.py)
 
 ### Common questions about reflected cross-site scripting
 
