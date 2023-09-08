@@ -448,56 +448,6 @@ It's work
 
 > [**Python Script for this lab**]([Solve-Portswigger-Labs-With_py/XSS/Reflected_XSS_into_a_JavaScript_string_with_single_quote_and_backslash_escaped.py at main · MohammedHawary/Solve-Portswigger-Labs-With_py (github.com)](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_a_JavaScript_string_with_single_quote_and_backslash_escaped.py))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### Common questions about reflected cross-site scripting
 
 **Difference between reflected XSS and stored XSS**: Reflected XSS injects input into the immediate response, while stored XSS stores input and embeds it into a later response.
