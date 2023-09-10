@@ -357,6 +357,18 @@ In some cases, the XSS context is within an HTML attribute that inherently allow
 
 You may find websites that encode angle brackets but still enable attribute injection. This can occur within tags that typically don't trigger events automatically, like the canonical tag. You can leverage this using access keys and user interaction in Chrome. Access keys enable keyboard shortcuts tied to specific elements. The accesskey attribute lets you specify a letter, which, when pressed with other keys (platform-specific), triggers events.
 
+
+
+Some websites encode angle brackets but still permit attribute injection. This is even possible in tags like the canonical tag that don't usually trigger events automatically. You can exploit this using access keys and user interaction on Chrome. Access keys enable keyboard shortcuts tied to specific elements. By defining an `accesskey='x'` attribute with a letter, you can trigger events when that letter is pressed in combination with other keys (platform-specific).
+
+ To assist with your exploit, you can assume that the simulated user will press the following key combinations:
+
+- ALT+SHIFT+X
+
+- CTRL+ALT+X
+
+- Alt+X
+
 #### EX1: Reflected XSS into attribute with angle brackets HTML-encoded
 
 First, test with this `<asdfghjk123>` to know where the payload reflected or if there are any changes on it 
@@ -378,6 +390,24 @@ And Let's check it
 ![Screenshot from 2023-09-05 12-01-49](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/252fdd7b-baf6-468d-8c9a-628aed5b27c1)
 
 > [**Python Script for this lab**](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_attribute_with_angle_brackets_HTML_encoded.py)
+
+### EX2: Reflected XSS in canonical link tag
+
+![Screenshot from 2023-09-10 11-58-33](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/ae59c7a5-5c9f-4165-bd2c-60d118adf69f)
+![Screenshot from 2023-09-10 11-58-59](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/ece20300-388d-4c41-8e44-db9e905bbc97)
+![Screenshot from 2023-09-10 12-01-05](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/e95808e1-50fa-47ab-b6e5-b22c6df5f45d)
+![Screenshot from 2023-09-10 12-01-37](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/2862497f-9b84-4afb-9981-d86914cd7dcf)
+![Screenshot from 2023-09-10 12-02-20](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/7cd6b5aa-b167-4601-8c4d-7027d77d41c8)
+![Screenshot from 2023-09-10 12-03-07](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/b0c73f32-6d93-42cc-84c5-bfa1c911b6f8)
+![Screenshot from 2023-09-10 12-04-01](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/f3224732-fdd1-44a4-9e8f-338f5295f24d)
+![Screenshot from 2023-09-10 12-07-51](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/0c9e863d-0ff2-44da-99c7-b028271172dc)
+![Screenshot from 2023-09-10 12-08-43](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/7e119a13-bcc7-4b34-a290-64d9233463e6)
+
+![Screenshot from 2023-09-10 12-08-33](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/02f7dd9f-3e7a-4ed4-9a3a-d6ddd86e3913)
+
+> [**Python Script for this lab**](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_in_canonical_link_tag.py)
+
+
 
 ### XSS in hidden input fields
 
@@ -549,8 +579,6 @@ It's work
 
 > [**Python Script for this lab**](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_a_JavaScript_string_with_angle_brackets_and_double_quotes_HTML_encoded_and_single_quotes_escaped.py)
 
-
-
 ### XSS without parentheses and semi-colons
 
 ![b1def7274037articlexsswithoutparenthesesarticle](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/31bd6c17-8a37-42cb-b546-3dc048129106)
@@ -597,59 +625,65 @@ The `onerror/throw` technique doesn't function when executing a throw from the c
 
 #### EX: Reflected XSS in a JavaScript URL with some characters blocked
 
+![Screenshot from 2023-09-09 04-02-18](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/cac8597b-b719-4320-987b-d9f4b995da72)
 
+> [**Python Script for this lab**](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_in_a_JavaScript_URL_with_some_characters_blocked.py)
 
+### XSS in JavaScript template literals
 
+JavaScript template literals, enclosed in backticks and utilizing `${...}`, embed and evaluate JavaScript expressions within strings, seamlessly merging them with the surrounding text.
 
+For instance, this script prints a welcome message with the user's display name.
 
+```js
+document.getElementById('message').innerText = `Welcome, ${user.displayName}.`;
+```
 
+In XSS within a JavaScript template literal, no need to end the literal; use ${...} to embed and execute JavaScript expressions. For example, in this XSS context:
 
+```html
+<script>
+...
+var input = `controllable data here`;
+...
+</script>
+```
 
+Then you can use the following payload to execute JavaScript without terminating the template literal: 
 
+```js
+${alert(document.domain)}
+```
 
+#### EX: Reflected XSS into a template literal with angle brackets, single, double quotes, backslash and backticks Unicode-escaped
 
+First, test with this `<img src="1" onerror="alert('asdfghjk123')">` to know where the payload reflected or if there are any changes on it
 
+![Screenshot from 2023-09-10 02-36-05](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/ad714088-ed9f-422f-9fe7-f02313f140ee)
+In the page source There are one place reflected in page source it's reflected in JS code in var `message` and replace this signs `< > " ' \` with  **CSS (ISO)** of it `\u003c \u0022 \u0027 \002f`
 
+![Screenshot from 2023-09-10 02-36-31](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/7bf19c19-6f01-4a61-969b-d4f54db19ab3)
+![Screenshot from 2023-09-10 02-53-10](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/10e043dd-43db-41dc-a362-16f326f47f75)
 
+Let's show if Jquery signs blocked or not 
 
+![Screenshot from 2023-09-10 02-41-33](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/ddf0368d-393a-4b85-8f07-8374200c6cbe)
+It's allowed thin let's create our payload with this info
 
+```js
+${alert(document.cookie)}
+```
 
+![Screenshot from 2023-09-10 02-42-38](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/e9ff95da-02b2-4e51-9765-71a7262e201c)
+The script reflected correctly this let's show it in browser
 
+![Screenshot from 2023-09-10 02-42-47](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/fee746b1-2be7-41e7-b72e-57b1bf49e44e)
+It's work
 
+![Screenshot from 2023-09-10 02-42-55](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/4be55bac-25b2-475c-966f-7752247085e5)
+![Screenshot from 2023-09-10 02-42-59](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/20b1fa30-eef0-455e-854e-0438e03f06e7)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+> [**Python Script for this lab**](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_into_a_template_literal_with_angle_brackets_single_double_quotes_backslash_and_backticks_Unicode_escaped.py) 
 
 ### Common questions about reflected cross-site scripting
 
