@@ -126,7 +126,7 @@ And to run xss press on `test`
 
 ### Making use of HTML-encoding
 
-When XSS occurs within JavaScript code enclosed in a quoted tag attribute, like an event handler, HTML encoding can sometimes be utilized to circumvent input filters.
+When XSS occurs within JavaScript code enclosed in a quoted tag attribute, like an event handler, **HTML encoding** can sometimes be utilized to circumvent input filters.
 
 After the browser parses the response and removes HTML tags and attributes, it performs HTML decoding on tag attribute values before proceeding. If the server-side application restricts or sanitizes crucial characters for an XSS attack, you can often evade input validation by employing HTML encoding on those characters.
 
@@ -138,10 +138,48 @@ For instance, if the XSS context is as follows:
 
 If the application blocks or escapes single quote characters, you can use this payload to break out of the JavaScript string and execute your script:
 
+![Screenshot from 2023-09-11 00-29-39](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/9ea45c9e-889f-4610-bd14-f9e931d5584e)
+It's stored in page source in four places, the important places in `a` tag this payload that I wrote the `Website` payload
+
+![Screenshot from 2023-09-11 00-31-02](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/4547d3ed-6384-4ae8-aefe-668c718e024e)
+
+Then I wrote this payload
+
+    http://www.asdfghjk1123.com?'alert(document.domain)'
+
+![Screenshot from 2023-09-11 01-21-51](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/c6c68bd1-5a1d-487d-b036-5563338db7d8)
+The server escaped the `'` with backslash
+
+![Screenshot from 2023-09-11 01-22-57](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/34c48bdc-d77b-4684-b629-45bde9543474)
+
+Let's try to escape the backslash with backslash
+
+![Screenshot from 20230911 004745](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/67ce419a-17f7-4ea6-bac3-a97d1227138d) 
+
+Not worked
+
+![Screenshot from 20230911 004823](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/7fe23387-f27c-4dc6-a322-d697cae6ec5a)
+
+Then Let's try to use HTML encoding
+
+![Screenshot from 2023-09-11 00-49-15](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/3d8da689-1ff6-4897-a912-4a64612e8128)
+
+And Create our payload 
+
 ```html
-&apos;-alert(document.domain)-&apos;
+http://hacker.com?&#x27;-alert()-&#x27;
 ```
 
-The `&apos;` sequence is an HTML entity for an apostrophe or single quote. As the browser HTML-decodes the `onclick` attribute value before interpreting JavaScript, the entities are decoded as quotes, serving as string delimiters, enabling the attack to succeed.
+![Screenshot from 2023-09-11 00-49-28](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/107ee0ba-cf6e-4616-9246-09b354c69e6e)
+And lab solved
 
-#### EX: Stored XSS into onclick event with angle brackets and double quotes HTML-encoded and single quotes and backslash escaped
+![Screenshot from 2023-09-11 00-49-43](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/b53ff449-6f48-43ec-bf34-2e289d7c9703)
+Our payload
+
+![Screenshot from 2023-09-11 00-50-51](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/fa7f0ecc-009b-4f85-8019-e98990af9c20)
+
+To run exploit press the link `hacker`
+
+![Screenshot from 2023-09-11 00-50-04](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/d7f0eb8d-0f13-446e-ace1-426875849bf3)
+
+> [**Python Script for this lab**](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Stored_XSS_into_onclick_event_with_angle_brackets_and_double_quotes_HTML_encoded_and_single_quotes_and_backslash_escaped.py)
