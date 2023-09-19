@@ -357,8 +357,6 @@ In some cases, the XSS context is within an HTML attribute that inherently allow
 
 You may find websites that encode angle brackets but still enable attribute injection. This can occur within tags that typically don't trigger events automatically, like the canonical tag. You can leverage this using access keys and user interaction in Chrome. Access keys enable keyboard shortcuts tied to specific elements. The accesskey attribute lets you specify a letter, which, when pressed with other keys (platform-specific), triggers events.
 
-
-
 Some websites encode angle brackets but still permit attribute injection. This is even possible in tags like the canonical tag that don't usually trigger events automatically. You can exploit this using access keys and user interaction on Chrome. Access keys enable keyboard shortcuts tied to specific elements. By defining an `accesskey='x'` attribute with a letter, you can trigger events when that letter is pressed in combination with other keys (platform-specific).
 
  To assist with your exploit, you can assume that the simulated user will press the following key combinations:
@@ -406,8 +404,6 @@ And Let's check it
 ![Screenshot from 2023-09-10 12-08-33](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/02f7dd9f-3e7a-4ed4-9a3a-d6ddd86e3913)
 
 > [**Python Script for this lab**](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/XSS/Reflected_XSS_in_canonical_link_tag.py)
-
-
 
 ### XSS in hidden input fields
 

