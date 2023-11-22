@@ -20,5 +20,4 @@
 | [53lu.com JJ Encode/decode](https://www.53lu.com/tool/jjencode/)  | JJ Encode/Decode                     |
 | [53lu.com jsfuck decode](https://www.53lu.com/tool/jsfuckdecode/) | jsfuck Decode                        |
 | [deobfuscatejavascript](http://deobfuscatejavascript.com/)        | js Deobfuscation                     |
-
-
+| [JSdeobfuscate](https://www.dcode.fr/javascript-unobfuscator)     | js Deobfuscation                     |
