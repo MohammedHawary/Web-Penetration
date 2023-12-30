@@ -36,7 +36,7 @@ http://vulnerable-website.com/?name={{bad-stuff-here}}
 
  Identifying server-side template injection vulnerabilities and crafting a successful attack typically involves the following high-level process. ![ssti-methodology-diagram](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/fc9bd5ad-30eb-4605-bb5c-cfaf5e880387)
 
-### Detect
+## Detect
 
 As with any vulnerability, the first step towards exploitation is being able to find it. Perhaps the simplest initial approach is to try fuzzing the template by injecting a sequence of special characters commonly used in template expressions, such as
 
@@ -44,7 +44,7 @@ As with any vulnerability, the first step towards exploitation is being able to 
 
 Server-side template injection vulnerabilities occur in two distinct contexts, each of which requires its own detection method. Regardless of the results of your fuzzing attempts, it is important to also try the following context-specific approaches. If fuzzing was inconclusive, a vulnerability may still reveal itself using one of these approaches. Even if fuzzing did suggest a template injection vulnerability, you still need to identify its context in order to exploit it. 
 
-#### Plaintext context
+### Plaintext context
 
 Template languages often permit free content input through HTML tags or the template's native syntax, which is rendered to HTML on the back-end before the HTTP response is sent. For instance, in Freemarker, the line `render('Hello ' + username)` would render as something like `Hello Carlos`.
 
@@ -66,7 +66,7 @@ If the output includes `Hello 49`, it indicates the server-side evaluation of th
 
 It's important to note that the syntax needed to execute the mathematical operation successfully varies based on the template engine in use.
 
-#### Code context
+### Code context
 
 
 
