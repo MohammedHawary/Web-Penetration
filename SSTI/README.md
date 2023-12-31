@@ -199,7 +199,7 @@ when i deleted it the lab solved and this is final payload
 
 ![Screenshot 2023-12-31 100253](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/18bb1457-569a-4fea-8db3-0d743330f280)
 
-[Python Script for this lab]([Solve-Portswigger-Labs-With_py/SSTI/Basic_server_side_template_injection.py at main · MohammedHawary/Solve-Portswigger-Labs-With_py (github.com)](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/SSTI/Basic_server_side_template_injection.py))
+[Python Script for this lab](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/SSTI/Basic_server_side_template_injection.py)
 
 
 
