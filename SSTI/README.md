@@ -164,6 +164,8 @@ In an unsandboxed environment, achieving remote code execution and using it to r
 
 #### EX1: Basic server-side template injection
 
+![Screenshot 2023-12-31 102935](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/ae4258b0-3e76-4887-abf7-7c60e940aa27)
+
 ![Screenshot 2023-12-31 102935](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/57a82600-a02e-4ba3-bb08-a11baf97c90e)
 
 ![Screenshot 2023-12-31 094728](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/5f7dd076-a44f-4553-bc9a-38754604b8cc)
