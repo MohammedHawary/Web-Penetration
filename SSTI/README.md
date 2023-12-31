@@ -164,7 +164,15 @@ In an unsandboxed environment, achieving remote code execution and using it to r
 
 #### EX1: Basic server-side template injection
 
+When I click on “View details” btn a message appears “Unfortunately this product is out of stock” and there is a “message” parameter contain this message
+
+```url
+/?message=Unfortunately%20this%20product%20is%20out%20of%20stock
+```
+
 ![Screenshot 2023-12-31 102935](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/ae4258b0-3e76-4887-abf7-7c60e940aa27)
+
+Then I tried some ssti payload and it worked this payload `<%= 7*7 %>` and showed me `49`
 
 ![Screenshot 2023-12-31 102935](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/57a82600-a02e-4ba3-bb08-a11baf97c90e)
 
