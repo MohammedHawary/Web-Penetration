@@ -288,12 +288,6 @@ it work and the `referer` header vulnerable with blind ssrf
 
 [Lab: Blind SSRF with Shellshock exploitation | Web Security Academy](https://portswigger.net/web-security/ssrf/blind/lab-shellshock-exploitation)
 
-
-
-
-
-
-
 ## Cheat sheet
 
 https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Server%20Side%20Request%20Forgery/README.md
