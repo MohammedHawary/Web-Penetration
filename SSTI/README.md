@@ -164,7 +164,7 @@ In an unsandboxed environment, achieving remote code execution and using it to r
 
 #### EX1: Basic server-side template injection
 
-When I click on “View details” btn a message appears “Unfortunately this product is out of stock” and there is a “message” parameter contain this message
+When I click on `View details` btn a message appears `Unfortunately this product is out of stock` and there is a `message` parameter contain this message
 
 ```url
 /?message=Unfortunately%20this%20product%20is%20out%20of%20stock
@@ -179,7 +179,7 @@ Then I tried some ssti payload and it worked this payload `<%= 7*7 %>` and showe
 ```
 
 ![Screenshot 2023-12-31 094728](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/5f7dd076-a44f-4553-bc9a-38754604b8cc)
- the ERB documentation, discover that the syntax <%= someExpression %> is used to evaluate an expression and render the result on the page.
+ the ERB documentation, discover that the syntax `<%= someExpression %>` is used to evaluate an expression and render the result on the page.
 
     /?message=<%= someExpression %>
 
