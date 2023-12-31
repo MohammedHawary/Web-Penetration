@@ -164,20 +164,22 @@ In an unsandboxed environment, achieving remote code execution and using it to r
 
 #### EX1: Basic server-side template injection
 
+When I click on “View details” btn a message appears “Unfortunately this product is out of stock” and there is a “message” parameter contain this message
+
+```url
+/?message=Unfortunately%20this%20product%20is%20out%20of%20stock
+```
+
 ![Screenshot 2023-12-31 102935](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/ae4258b0-3e76-4887-abf7-7c60e940aa27)
 
-![Screenshot 2023-12-31 102935](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/57a82600-a02e-4ba3-bb08-a11baf97c90e)
+Then I tried some ssti payload and it worked this payload `<%= 7*7 %>` and showed me `49`
 
 ![Screenshot 2023-12-31 094728](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/5f7dd076-a44f-4553-bc9a-38754604b8cc)
-![Screenshot 2023-12-31 094759](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/5c051801-4eba-4ae2-8eb6-fc5336879abf)
-![Screenshot 2023-12-31 094809](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/d66a1d9b-be19-4fb6-9091-70fa397cbed6)
+ the ERB documentation, discover that the syntax <%= someExpression %> is used to evaluate an expression and render the result on the page.
+
 ![Screenshot 2023-12-31 094835](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/8650faee-c3ba-4d2c-bffc-7d4c09ebfa7b)
 ![Screenshot 2023-12-31 100202](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/9e8999b2-ca4d-4cab-946a-dcd4deb2a700)
 ![Screenshot 2023-12-31 100253](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/3ee5cc70-e7ea-42e3-8307-f06a0efdd3ea)
-
-
-
-
 
 ###### ERB (Ruby)
 
