@@ -68,25 +68,57 @@ It's important to note that the syntax needed to execute the mathematical operat
 
 ### Code context
 
+In some instances, user input, as demonstrated in our earlier email example, can expose vulnerabilities when inserted into a template expression. This might involve placing a user-controllable variable name inside a parameter.
 
+```php
+greeting = getQueryParameter('greeting')
+engine.render("Hello {{"+greeting+"}}", data)
+```
 
+On the website, the resulting URL would be something like:
 
+```url
+http://vulnerable-website.com/?greeting=data.username
+```
 
+This would be rendered in the output to `Hello Carlos`, for example.
 
+This context is often overlooked in assessments as it doesn't lead to evident XSS and closely resembles a straightforward hashmap lookup. To test for server-side template injection here, one approach is to confirm that the parameter lacks a direct XSS vulnerability by injecting arbitrary HTML into the value:
 
+```url
+http://vulnerable-website.com/?greeting=data.username<tag>
+```
 
+Without XSS, this typically leads to either an empty entry in the output (only "Hello" without the username), encoded tags, or an error message. The subsequent step involves trying to escape the statement using standard templating syntax and injecting arbitrary HTML afterward.
 
+```url
+http://vulnerable-website.com/?greeting=data.username}}<tag>
+```
 
+If encountering an error or blank output after attempting this indicates either the use of incorrect syntax for the templating language or, if no valid template-style syntax is apparent, server-side template injection is likely impossible. Conversely, if the output displays correctly alongside the injected arbitrary HTML, it strongly suggests the presence of a server-side template injection vulnerability.
 
+```html
+Hello Carlos<tag>
+```
 
+### Identify
 
+Once you have detected the template injection potential, the next step is to identify the template engine.
 
+Although there are a huge number of templating languages, many of them use very similar syntax that is specifically chosen not to clash with HTML characters. As a result, it can be relatively simple to create probing payloads to test which template engine is being used.
 
+Simply submitting invalid syntax is often enough because the resulting error message will tell you exactly what the template engine is, and sometimes even which version. For example, the invalid expression `<%=foobar%>` triggers the following response from the Ruby-based ERB engine:
 
+```log
+(erb):1:in `<main>': undefined local variable or method `foobar' for main:Object (NameError)
+from /usr/lib/ruby/2.5.0/erb.rb:876:in `eval'
+from /usr/lib/ruby/2.5.0/erb.rb:876:in `result'
+from -e:4:in `<main>'
+```
 
+Otherwise, manual testing involves trying various language-specific payloads and examining their interpretation by the template engine. Employing a process of elimination based on apparent validity or invalidity of syntax helps narrow down options quickly. A common approach is injecting arbitrary mathematical operations using syntax from different template engines and observing their successful evaluation. For assistance, a decision tree, like the one below, can be beneficial:
 
-
-
+![template-decision-tree](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/b0756980-2d94-4951-965f-229f7c045058)
 
 
 
