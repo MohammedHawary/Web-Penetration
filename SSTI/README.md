@@ -176,14 +176,8 @@ Then I tried some ssti payload and it worked this payload `<%= 7*7 %>` and showe
 
 ![Screenshot 2023-12-31 094728](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/5f7dd076-a44f-4553-bc9a-38754604b8cc)
  the ERB documentation, discover that the syntax <%= someExpression %> is used to evaluate an expression and render the result on the page.
-<<<<<<< HEAD
 
-=======
 
-> > > > > > > aee17152d2f20aaaee7e58f265b53cb5ee6c5b59
-> > > > > > > ![Screenshot 2023-12-31 094835](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/8650faee-c3ba-4d2c-bffc-7d4c09ebfa7b)
-> > > > > > > ![Screenshot 2023-12-31 100202](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/9e8999b2-ca4d-4cab-946a-dcd4deb2a700)
-> > > > > > > ![Screenshot 2023-12-31 100253](https://github.com/MohammedHawary/Web-Penetration/assets/94152045/3ee5cc70-e7ea-42e3-8307-f06a0efdd3ea)
 
 ###### ERB (Ruby)
 
